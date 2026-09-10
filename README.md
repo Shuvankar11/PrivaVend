@@ -1,12 +1,8 @@
 <p align="center">
-  <img src="assets/privavend_logo.png" alt="PrivaVend Brand Logo" width="140" style="border-radius: 28px;" />
+  <img src="assets/privavend_logo.png" alt="PrivaVend Brand Logo" width="160" style="border-radius: 24px;" />
 </p>
 
 # ⚡ PrivaVend: Zero-Trace Autonomous AI Data Vending Machine (DVM)
-
-<p align="center">
-  <img src="assets/privavend_banner.png" alt="PrivaVend Architecture Cover" width="100%" style="border-radius: 14px;" />
-</p>
 
 > **Bitshala BOSS Battle Hackathon Submission**  
 > *Bridging Cypherpunk Privacy, Nostr NIP-90, and Cashu Chaumian Ecash.*
