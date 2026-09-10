@@ -151,6 +151,17 @@ tests/test_nostr.py::test_nip90_feedback_and_result_generation PASSED
 
 ---
 
+## 🖥️ Live UI & Interactive Terminal Preview
+
+Experience the live deployment directly in your browser:  
+🔗 **[Launch PrivaVend Live DVM (priva-vend.vercel.app)](https://priva-vend.vercel.app)**
+
+<p align="center">
+  <img src="assets/privavend_ui_preview.png" alt="PrivaVend Interactive Cyberpunk UI Preview" width="100%" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);" />
+</p>
+
+---
+
 ## 🧭 Mission & Overview
 
 **PrivaVend** is a decentralized, zero-trace, autonomous AI Data Vending Machine (DVM) built for the Nostr protocol. Settled off-chain with untraceable **Cashu Chaumian Ecash** tokens, PrivaVend ensures that neither the AI inference provider nor the Nostr relay operators can correlate a user's prompt or identity with their payment history.
