@@ -9,6 +9,36 @@
 
 ---
 
+## 🔑 Key Features & Cypherpunk Guarantees
+
+1. **Chaumian Ecash Settlement (NUT-00 to NUT-07)**:
+   - Accept blinded tokens (`cashuA...`).
+   - Atomic swap (`POST /v1/swap`) executed **prior to inference** to prevent double-spends.
+   - Proof state verification (`POST /v1/checkstate`).
+   - In-memory vault tracks cumulative earnings without centralized databases.
+
+2. **Nostr NIP-90 DVM Standard**:
+   - **Kind 5000**: Ingests job requests with prompt payloads, cashu tokens, and optional model params.
+   - **Kind 7000**: Real-time feedback (`processing`, `payment-required`, `error`, `success`).
+   - **Kind 6000**: Verifiable job result publication.
+
+3. **End-to-End NIP-44 (Version 2) Encryption**:
+   - The AI output is encrypted with the requester's public key using ChaCha20, power-of-two padding, and HMAC-SHA256 authentication.
+   - Only the private key holder who submitted the job can decrypt the inference result.
+
+4. **Modular AI Engine**:
+   - Primary: Local, private **Ollama** runner (`llama3`, `mistral`, `deepseek-r1`).
+   - Fallback: External OpenAI-compatible APIs (Together AI, Groq, OpenRouter).
+   - Offline Simulation: Intelligent fallback engine for local testing and zero-dependency CI.
+   - Prompt sanitization and jailbreak boundary protection.
+
+5. **Resilient Relay Pool**:
+   - Simultaneous connections across multiple public Nostr relays (`relay.damus.io`, `nos.lol`, `relay.primal.net`).
+   - Automatic reconnect with exponential backoff and background ping/pong heartbeats.
+   - LRU deduplication across relays.
+
+---
+
 ## 🧭 Mission & Overview
 
 **PrivaVend** is a decentralized, zero-trace, autonomous AI Data Vending Machine (DVM) built for the Nostr protocol. Settled off-chain with untraceable **Cashu Chaumian Ecash** tokens, PrivaVend ensures that neither the AI inference provider nor the Nostr relay operators can correlate a user's prompt or identity with their payment history.
@@ -52,36 +82,6 @@
 |      - Signs BIP-340 Schnorr signature and publishes Kind 6000 result       |
 +-----------------------------------------------------------------------------+
 ```
-
----
-
-## 🔑 Key Features & Cypherpunk Guarantees
-
-1. **Chaumian Ecash Settlement (NUT-00 to NUT-07)**:
-   - Accept blinded tokens (`cashuA...`).
-   - Atomic swap (`POST /v1/swap`) executed **prior to inference** to prevent double-spends.
-   - Proof state verification (`POST /v1/checkstate`).
-   - In-memory vault tracks cumulative earnings without centralized databases.
-
-2. **Nostr NIP-90 DVM Standard**:
-   - **Kind 5000**: Ingests job requests with prompt payloads, cashu tokens, and optional model params.
-   - **Kind 7000**: Real-time feedback (`processing`, `payment-required`, `error`, `success`).
-   - **Kind 6000**: Verifiable job result publication.
-
-3. **End-to-End NIP-44 (Version 2) Encryption**:
-   - The AI output is encrypted with the requester's public key using ChaCha20, power-of-two padding, and HMAC-SHA256 authentication.
-   - Only the private key holder who submitted the job can decrypt the inference result.
-
-4. **Modular AI Engine**:
-   - Primary: Local, private **Ollama** runner (`llama3`, `mistral`, `deepseek-r1`).
-   - Fallback: External OpenAI-compatible APIs (Together AI, Groq, OpenRouter).
-   - Offline Simulation: Intelligent fallback engine for local testing and zero-dependency CI.
-   - Prompt sanitization and jailbreak boundary protection.
-
-5. **Resilient Relay Pool**:
-   - Simultaneous connections across multiple public Nostr relays (`relay.damus.io`, `nos.lol`, `relay.primal.net`).
-   - Automatic reconnect with exponential backoff and background ping/pong heartbeats.
-   - LRU deduplication across relays.
 
 ---
 
