@@ -253,4 +253,4 @@ PrivaVend/
 
 ## ⚖️ License
 
-MIT License - Open Source Cypherpunk Software. Built for the Bitshala BOSS Battle Hackathon.
+Distributed under the [MIT License](LICENSE) - Open Source Cypherpunk Software. Built for the Bitshala BOSS Battle Hackathon.
