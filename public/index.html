@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- Three.js for 3D Morphing Metallic Sculpture -->
+  <!-- Three.js for 3D Cryptographic Quantum Core -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <script>
@@ -44,6 +44,62 @@
       color: #e2e8f0;
       overflow-x: hidden;
     }
+
+    /* Custom Animated Cursor */
+    @media (hover: hover) and (pointer: fine) {
+      body, a, button, input, textarea, select, .slider-arrow, .pill-btn {
+        cursor: none !important;
+      }
+    }
+    #cursor-dot {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      background: #00f2fe;
+      border-radius: 50%;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.2s ease, transform 0.12s ease, background 0.2s ease;
+      box-shadow: 0 0 10px #00f2fe;
+    }
+    #cursor-ring {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(0, 242, 254, 0.45);
+      border-radius: 50%;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #cursor-ring.cursor-hover {
+      width: 54px;
+      height: 54px;
+      border-color: rgba(0, 242, 254, 0.95);
+      background: rgba(0, 242, 254, 0.12);
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+    }
+    #cursor-dot.cursor-hover {
+      background: #ffffff;
+      transform: translate(-50%, -50%) scale(0.65);
+      box-shadow: 0 0 12px #ffffff;
+    }
+    #cursor-ring.cursor-active {
+      width: 28px;
+      height: 28px;
+      border-color: rgba(247, 147, 26, 0.9);
+      background: rgba(247, 147, 26, 0.25);
+    }
     
     /* Luxury Oleg Frolov Glassmorphism */
     .frosted-glass {
@@ -65,25 +121,25 @@
 
     /* Minimal circular slider arrow (Oleg Frolov Style) */
     .slider-arrow {
-      width: 54px;
-      height: 54px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(10, 12, 18, 0.45);
-      backdrop-filter: blur(12px);
+      background: rgba(10, 12, 18, 0.55);
+      backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.8);
       transition: all 0.3s ease;
       cursor: pointer;
     }
     .slider-arrow:hover {
-      border-color: rgba(255, 255, 255, 0.9);
+      border-color: rgba(255, 255, 255, 0.95);
       color: #ffffff;
       transform: scale(1.08);
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
     }
 
     /* Minimal Pill Button */
@@ -137,20 +193,20 @@
     }
 
     @keyframes slideInFwd {
-      0% { opacity: 0; transform: translateX(65px) scale(1.04); filter: blur(8px); }
+      0% { opacity: 0; transform: translateX(55px) scale(1.03); filter: blur(6px); }
       100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
     }
     @keyframes slideOutFwd {
       0% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
-      100% { opacity: 0; transform: translateX(-65px) scale(0.96); filter: blur(8px); }
+      100% { opacity: 0; transform: translateX(-55px) scale(0.97); filter: blur(6px); }
     }
     @keyframes slideInBwd {
-      0% { opacity: 0; transform: translateX(-65px) scale(1.04); filter: blur(8px); }
+      0% { opacity: 0; transform: translateX(-55px) scale(1.03); filter: blur(6px); }
       100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
     }
     @keyframes slideOutBwd {
       0% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
-      100% { opacity: 0; transform: translateX(65px) scale(0.96); filter: blur(8px); }
+      100% { opacity: 0; transform: translateX(55px) scale(0.97); filter: blur(6px); }
     }
 
     /* Custom Scrollbar */
@@ -172,7 +228,11 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black">
 
-  <!-- 3D HERO SECTION (Oleg Frolov Style with Auto-Play & 3D Swirl) -->
+  <!-- Animated Custom Cursor Elements -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- 3D HERO SECTION (Oleg Frolov Style with Cryptographic Quantum Core) -->
   <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none">
     
     <!-- Three.js 3D Morphing Sculpture Canvas -->
@@ -212,37 +272,37 @@
       </nav>
     </header>
 
-    <!-- Centerpiece Typography & Slider Controls -->
-    <div class="relative z-20 w-full max-w-7xl mx-auto px-4 md:px-12 flex items-center justify-between flex-grow pointer-events-none">
+    <!-- Centerpiece Typography & Slider Controls (Spacious Bounds) -->
+    <div class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 flex items-center justify-between flex-grow pointer-events-none">
       
-      <!-- Left Carousel Arrow (Oleg Frolov Style) -->
-      <button onclick="prevSlide()" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="slider-arrow pointer-events-auto" title="Previous Architecture Track">
+      <!-- Left Carousel Arrow -->
+      <button onclick="prevSlide()" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="slider-arrow pointer-events-auto shrink-0 z-30" title="Previous Architecture Track">
         <i class="fa-solid fa-chevron-left text-xs"></i>
       </button>
 
-      <!-- Center Dynamic Slide Typography -->
-      <div id="slide-container" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="text-center px-4 py-8 pointer-events-auto max-w-3xl">
+      <!-- Center Dynamic Slide Typography (Controlled Width so it NEVER touches arrows!) -->
+      <div id="slide-container" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="text-center px-4 sm:px-6 md:px-8 py-6 pointer-events-auto max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto flex-grow overflow-hidden">
         <div id="slide-content-wrapper">
           <!-- Slide Badge / Sub-tag -->
-          <div id="slide-tag" class="text-[10px] md:text-xs font-mono uppercase tracking-[0.35em] text-cyanneon mb-3 font-semibold transition-colors duration-500">
+          <div id="slide-tag" class="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] sm:tracking-[0.35em] text-cyanneon mb-3 font-semibold transition-colors duration-500">
             BITSHALA BOSS BATTLE • CYPHERPUNK AI
           </div>
 
-          <!-- Grand Title with Wide Oleg Frolov Letter Spacing -->
-          <h1 id="slide-title" class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight uppercase tracking-[0.3em] md:tracking-[0.45em] text-white drop-shadow-2xl">
+          <!-- Grand Title with Controlled Spacing so longer words like CYPHERPUNK fit comfortably -->
+          <h1 id="slide-title" class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light uppercase tracking-[0.16em] sm:tracking-[0.24em] md:tracking-[0.28em] text-white drop-shadow-2xl transition-all duration-300">
             PRIVAVEND
           </h1>
 
           <!-- Delicate Horizontal Divider -->
-          <div class="w-24 md:w-36 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto my-5 md:my-6"></div>
+          <div class="w-20 sm:w-28 md:w-36 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto my-4 sm:my-5 md:my-6"></div>
 
-          <!-- Subtitle with Wide Spacing -->
-          <p id="slide-desc" class="text-[11px] md:text-xs font-mono uppercase tracking-[0.25em] md:tracking-[0.35em] text-gray-400 max-w-xl mx-auto leading-relaxed">
+          <!-- Subtitle with Controlled Width & Clean Wrap -->
+          <p id="slide-desc" class="text-[10px] sm:text-[11px] md:text-xs font-mono uppercase tracking-[0.16em] sm:tracking-[0.22em] md:tracking-[0.26em] text-gray-400 max-w-lg mx-auto leading-relaxed">
             ZERO-TRACE AUTONOMOUS AI DATA VENDING MACHINE
           </p>
 
           <!-- Minimalist Pill Action Button -->
-          <div class="mt-8">
+          <div class="mt-6 sm:mt-8">
             <a id="slide-btn" href="#workspace" onclick="handleSlideAction()" class="pill-btn">
               <span>ENTER TERMINAL</span>
               <i class="fa-solid fa-arrow-right text-[10px]"></i>
@@ -252,7 +312,7 @@
       </div>
 
       <!-- Right Carousel Arrow -->
-      <button onclick="nextSlide()" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="slider-arrow pointer-events-auto" title="Next Architecture Track">
+      <button onclick="nextSlide()" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="slider-arrow pointer-events-auto shrink-0 z-30" title="Next Architecture Track">
         <i class="fa-solid fa-chevron-right text-xs"></i>
       </button>
 
@@ -681,8 +741,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         tagColor: '#00f2fe',
         lightCyanHex: 0x00f2fe,
         lightAmberHex: 0xf7931a,
-        lightCyanIntensity: 1.9,
-        lightAmberIntensity: 1.3
+        lightCyanIntensity: 2.2,
+        lightAmberIntensity: 1.4
       },
       {
         tag: 'BITSHALA BOSS BATTLE • MACHINE MONEY TRACK',
@@ -693,8 +753,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         tagColor: '#f7931a',
         lightCyanHex: 0xf7931a,
         lightAmberHex: 0xffaa00,
-        lightCyanIntensity: 2.6,
-        lightAmberIntensity: 1.8
+        lightCyanIntensity: 2.8,
+        lightAmberIntensity: 2.0
       },
       {
         tag: 'BITSHALA BOSS BATTLE • FREEDOM STACK TRACK',
@@ -705,8 +765,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         tagColor: '#10b981',
         lightCyanHex: 0x10b981,
         lightAmberHex: 0x00f2fe,
-        lightCyanIntensity: 2.4,
-        lightAmberIntensity: 1.2
+        lightCyanIntensity: 2.6,
+        lightAmberIntensity: 1.3
       },
       {
         tag: 'BITSHALA BOSS BATTLE • ZERO-KYC GUARANTEES',
@@ -717,8 +777,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         tagColor: '#a855f7',
         lightCyanHex: 0xa855f7,
         lightAmberHex: 0x00f2fe,
-        lightCyanIntensity: 2.5,
-        lightAmberIntensity: 1.5
+        lightCyanIntensity: 2.8,
+        lightAmberIntensity: 1.6
       }
     ];
 
@@ -730,11 +790,10 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     // 3D Lighting & Physics Targets
     let targetLight1Color = new THREE.Color(0x00f2fe);
     let targetLight2Color = new THREE.Color(0xf7931a);
-    let targetLight1Intensity = 1.9;
-    let targetLight2Intensity = 1.3;
+    let targetLight1Intensity = 2.2;
+    let targetLight2Intensity = 1.4;
     let rotationBurst = 0;
     let targetBurst = 0;
-    let waveSurge = 0;
 
     function renderSlide(index, direction = 1) {
       if (isTransitioning) return;
@@ -743,8 +802,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
       const data = slides[index];
 
       // Trigger 3D physics swirl & lighting mood shift
-      targetBurst += direction * 1.5;
-      waveSurge = 0.6; // surge wave deformation like liquid mercury
+      targetBurst += direction * 1.6;
       targetLight1Color.setHex(data.lightCyanHex);
       targetLight2Color.setHex(data.lightAmberHex);
       targetLight1Intensity = data.lightCyanIntensity;
@@ -840,9 +898,9 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     });
 
     // -------------------------------------------------------------
-    // THREE.JS 3D ORGANIC MORPHING METALLIC SCULPTURE
+    // THREE.JS 3D CRYPTOGRAPHIC QUANTUM CORE (Torus Knot + Gyro Rings)
     // -------------------------------------------------------------
-    let scene, camera, renderer, sphere, origPositions, posAttribute;
+    let scene, camera, renderer, cryptoKnot, gyroRing1, gyroRing2;
     let lightCyan, lightAmber, lightFront;
     let particles;
     let mouseX = 0, mouseY = 0;
@@ -863,37 +921,63 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Geometry: Icosahedron with detail for smooth organic deformation
-      const geometry = new THREE.IcosahedronGeometry(1.65, 52);
-      posAttribute = geometry.attributes.position;
-      origPositions = new Float32Array(posAttribute.array);
+      // Geometry: High-definition Cryptographic Torus Knot (Math of Chaumian Ecash & Secp256k1)
+      const knotGeometry = new THREE.TorusKnotGeometry(1.26, 0.38, 220, 36, 2, 3);
+      knotGeometry.computeVertexNormals();
 
-      // Material: Dark metallic organic surface (Oleg Frolov Style)
-      const material = new THREE.MeshStandardMaterial({
-        color: 0x181a20,
-        roughness: 0.28,
-        metalness: 0.88
+      // Material: Ultra-luxury dark chrome/titanium metallic surface
+      const knotMaterial = new THREE.MeshStandardMaterial({
+        color: 0x141720,
+        roughness: 0.18,
+        metalness: 0.94
       });
 
-      sphere = new THREE.Mesh(geometry, material);
-      scene.add(sphere);
+      cryptoKnot = new THREE.Mesh(knotGeometry, knotMaterial);
+      scene.add(cryptoKnot);
+
+      // Gyroscopic Orbital Ring 1 (Inner Cyan Gyro Ring)
+      const ringGeom1 = new THREE.TorusGeometry(2.28, 0.012, 16, 120);
+      const ringMat1 = new THREE.MeshStandardMaterial({
+        color: 0x00f2fe,
+        emissive: 0x00f2fe,
+        emissiveIntensity: 0.7,
+        roughness: 0.3,
+        metalness: 0.8
+      });
+      gyroRing1 = new THREE.Mesh(ringGeom1, ringMat1);
+      gyroRing1.rotation.x = Math.PI * 0.35;
+      scene.add(gyroRing1);
+
+      // Gyroscopic Orbital Ring 2 (Outer Amber Gyro Ring)
+      const ringGeom2 = new THREE.TorusGeometry(2.62, 0.009, 16, 120);
+      const ringMat2 = new THREE.MeshStandardMaterial({
+        color: 0xf7931a,
+        emissive: 0xf7931a,
+        emissiveIntensity: 0.6,
+        roughness: 0.3,
+        metalness: 0.8
+      });
+      gyroRing2 = new THREE.Mesh(ringGeom2, ringMat2);
+      gyroRing2.rotation.y = Math.PI * 0.4;
+      gyroRing2.rotation.x = -Math.PI * 0.2;
+      scene.add(gyroRing2);
 
       // Ambient & Directional Rim Lights
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
       scene.add(ambientLight);
 
       // Dynamic Rim Light 1 (Cyan/Primary)
-      lightCyan = new THREE.DirectionalLight(0x00f2fe, 1.9);
+      lightCyan = new THREE.DirectionalLight(0x00f2fe, 2.2);
       lightCyan.position.set(5, 3, 4);
       scene.add(lightCyan);
 
       // Dynamic Rim Light 2 (Amber/Secondary)
-      lightAmber = new THREE.DirectionalLight(0xf7931a, 1.3);
+      lightAmber = new THREE.DirectionalLight(0xf7931a, 1.4);
       lightAmber.position.set(-5, -3, -2);
       scene.add(lightAmber);
 
       // Soft white key light front
-      lightFront = new THREE.PointLight(0xffffff, 1.0, 25);
+      lightFront = new THREE.PointLight(0xffffff, 1.1, 25);
       lightFront.position.set(0, 2, 5);
       scene.add(lightFront);
 
@@ -911,7 +995,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         color: 0xffffff,
         size: 0.035,
         transparent: true,
-        opacity: 0.6
+        opacity: 0.65
       });
       particles = new THREE.Points(pGeom, pMaterial);
       scene.add(particles);
@@ -939,42 +1023,75 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         // Smoothly interpolate rotation burst from slide transitions
         rotationBurst += (targetBurst - rotationBurst) * 0.06;
 
-        // Smoothly decay wave surge back to 0
-        waveSurge += (0 - waveSurge) * 0.05;
-        const currentWaveAmp = 0.26 + waveSurge * 0.25;
-
         // Smoothly interpolate dynamic light colors and intensities
         lightCyan.color.lerp(targetLight1Color, 0.05);
         lightAmber.color.lerp(targetLight2Color, 0.05);
         lightCyan.intensity += (targetLight1Intensity - lightCyan.intensity) * 0.05;
         lightAmber.intensity += (targetLight2Intensity - lightAmber.intensity) * 0.05;
 
-        // Deform vertices with smooth harmonic wave + wave surge
-        const positions = posAttribute.array;
-        for (let i = 0; i < positions.length; i += 3) {
-          const u = origPositions[i];
-          const v = origPositions[i + 1];
-          const w = origPositions[i + 2];
-          const wave = Math.sin(u * 2.2 + time) * Math.cos(v * 2.2 + time * 0.9) * Math.sin(w * 2.2 + time * 1.1) * currentWaveAmp;
-          positions[i] = u * (1 + wave);
-          positions[i + 1] = v * (1 + wave);
-          positions[i + 2] = w * (1 + wave);
-        }
-        posAttribute.needsUpdate = true;
-        geometry.computeVertexNormals();
-
         // Parallax interpolation
         targetX += (mouseX - targetX) * 0.05;
         targetY += (mouseY - targetY) * 0.05;
 
-        sphere.rotation.y = time * 0.2 + targetX + rotationBurst;
-        sphere.rotation.x = Math.sin(time * 0.15) * 0.15 + targetY;
+        // Smooth multi-axis rotation for the Cryptographic Knot
+        cryptoKnot.rotation.y = time * 0.35 + targetX + rotationBurst;
+        cryptoKnot.rotation.x = Math.sin(time * 0.25) * 0.25 + targetY;
+        cryptoKnot.rotation.z = time * 0.15;
+
+        // Counter-rotating Gyroscopic Orbital Rings
+        gyroRing1.rotation.z = time * 0.25 + rotationBurst * 0.5;
+        gyroRing1.rotation.y = Math.cos(time * 0.2) * 0.3;
+
+        gyroRing2.rotation.z = -time * 0.2 - rotationBurst * 0.3;
+        gyroRing2.rotation.x = Math.sin(time * 0.22) * 0.35;
+
         particles.rotation.y = time * 0.03 + rotationBurst * 0.2;
 
         renderer.render(scene, camera);
       }
       animate();
     }
+
+    // -------------------------------------------------------------
+    // ANIMATED CUSTOM CURSOR SYSTEM
+    // -------------------------------------------------------------
+    let mouseCursorX = -100, mouseCursorY = -100;
+    let ringCursorX = -100, ringCursorY = -100;
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+
+    window.addEventListener('mousemove', (e) => {
+      mouseCursorX = e.clientX;
+      mouseCursorY = e.clientY;
+      dot.style.left = mouseCursorX + 'px';
+      dot.style.top = mouseCursorY + 'px';
+    });
+
+    function updateCursor() {
+      ringCursorX += (mouseCursorX - ringCursorX) * 0.18;
+      ringCursorY += (mouseCursorY - ringCursorY) * 0.18;
+      ring.style.left = ringCursorX + 'px';
+      ring.style.top = ringCursorY + 'px';
+      requestAnimationFrame(updateCursor);
+    }
+    updateCursor();
+
+    function setupCursorHovers() {
+      const interactables = document.querySelectorAll('a, button, input, textarea, select, .slider-arrow, .pill-btn, [role="button"]');
+      interactables.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          ring.classList.add('cursor-hover');
+          dot.classList.add('cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+          ring.classList.remove('cursor-hover');
+          dot.classList.remove('cursor-hover');
+        });
+      });
+    }
+
+    window.addEventListener('mousedown', () => ring.classList.add('cursor-active'));
+    window.addEventListener('mouseup', () => ring.classList.remove('cursor-active'));
 
     // -------------------------------------------------------------
     // AUDIO SYNTHESIZER & WEB AUDIO API SFX
@@ -1178,6 +1295,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     // Initialize UI on load
     window.addEventListener('DOMContentLoaded', () => {
       init3DHero();
+      setupCursorHovers();
       updateCharCount();
       renderSlide(0);
       startAutoplay();
