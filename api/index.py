@@ -77,14 +77,14 @@ class handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         path = self.path.split("?")[0]
-        if path == "/api/simulate":
+        if path in ("/api/simulate", "/api/job"):
             try:
                 content_length = int(self.headers.get("Content-Length", 0))
                 body = self.rfile.read(content_length).decode("utf-8")
                 req_data = json.loads(body) if body else {}
 
                 prompt = req_data.get("prompt", "Perform a security audit of an atomic escrow contract with 2-of-3 multisig.")
-                cashu_token = req_data.get("cashu_token", "")
+                cashu_token = req_data.get("cashu_token") or req_data.get("ecash_token", "")
                 model = req_data.get("model", "llama3")
 
                 # Ephemeral worker identity
@@ -152,6 +152,8 @@ class handler(BaseHTTPRequestHandler):
                 self._send_json(200, {
                     "success": True,
                     "elapsed_ms": elapsed_ms,
+                    "result": decrypted_result,
+                    "encrypted_ciphertext": res_event.content,
                     "settlement": {
                         "settled_sats": total_sats,
                         "mint": token.primary_mint or "https://mint.minibits.cash/Bitcoin",
@@ -169,12 +171,6 @@ class handler(BaseHTTPRequestHandler):
                         "kind": 7000,
                         "status": "processing",
                         "id": fb_event.id
-                    },
-                    "result": {
-                        "kind": 6000,
-                        "id": res_event.id,
-                        "encrypted_payload_nip44": res_event.content[:64] + "...",
-                        "decrypted_plaintext": decrypted_result
                     }
                 })
             except Exception as e:

@@ -619,7 +619,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     // -------------------------------------------------------------
     // INTERACTIVE WORKSPACE TABS & LOGIC
     // -------------------------------------------------------------
-    function switchTab(tabId) {
+    function switchTab(tabId, updateUrl = true) {
       playTone(480, 0.05);
       const tabs = ['terminal', 'network', 'bdhke', 'specs'];
       tabs.forEach(t => {
@@ -635,7 +635,17 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
           }
         }
       });
+      if (updateUrl && history.replaceState) {
+        history.replaceState(null, null, '#' + tabId);
+      }
     }
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['terminal', 'network', 'bdhke', 'specs'].includes(hash)) {
+        switchTab(hash, false);
+      }
+    });
 
     function setPromptPreset(type) {
       playTone(700, 0.06);
