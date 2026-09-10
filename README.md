@@ -158,7 +158,10 @@ Experience the live deployment directly in your browser:
 - 🌐 **[PrivaVend Showcase Landing Page](https://priva-vend.vercel.app)**
 
 <p align="center">
-  <img src="assets/privavend_ui_preview.png" alt="PrivaVend Interactive Cyberpunk UI Preview" width="100%" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);" />
+1. <img width="1920" height="1091" alt="{431B51CD-66A8-4CCB-A678-BE4AB1E99E3C}" src="https://github.com/user-attachments/assets/59f33f78-d5a3-40fc-b757-5c0a957790ff" />
+ 
+2. <img width="1920" height="1092" alt="{7940FD6F-AA1F-4519-B1EB-73D884BC991C}" src="https://github.com/user-attachments/assets/91209bb8-5b5e-4933-9c33-aa8c718b39a3" />
+
 </p>
 
 ---
