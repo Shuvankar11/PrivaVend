@@ -154,7 +154,8 @@ tests/test_nostr.py::test_nip90_feedback_and_result_generation PASSED
 ## 🖥️ Live UI & Interactive Terminal Preview
 
 Experience the live deployment directly in your browser:  
-🔗 **[Launch PrivaVend Live DVM (priva-vend.vercel.app)](https://priva-vend.vercel.app)**
+- 🚀 **[PrivaVend Interactive Workstation App (/app)](https://priva-vend.vercel.app/app)**
+- 🌐 **[PrivaVend Showcase Landing Page](https://priva-vend.vercel.app)**
 
 <p align="center">
   <img src="assets/privavend_ui_preview.png" alt="PrivaVend Interactive Cyberpunk UI Preview" width="100%" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);" />

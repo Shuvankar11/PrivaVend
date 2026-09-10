@@ -18,14 +18,31 @@ PrivaVend
 Zero-trace autonomous AI Data Vending Machine (DVM) settled off-chain via Cashu Chaumian Ecash over Nostr NIP-90.
 ```
 
+### Project Links
+- **GitHub Repository:** `https://github.com/Shuvankar11/PrivaVend`
+- **Live Interactive App (DVM Workstation):** `https://priva-vend.vercel.app/app`
+- **Landing Page / Showcase:** `https://priva-vend.vercel.app`
+
+### Hackathon Track Alignment
+- **Primary Track:** Bitcoin & Machine Money / Decentralized AI
+- **Secondary Tracks:** Freedom Tech / Nostr Protocol / Privacy & Cryptography
+- **Event:** Bitshala BOSS Battle Hackathon 2026
+
 ---
 
-## 2. Media Uploads
+## 2. Media Uploads & Screenshots Guide
 
 - **Project Logo (Square Icon):**  
-  File located at: `D:\BOSS BATTLE\PrivaVend\assets\privavend_logo.png`
+  File located at: `D:\BOSS BATTLE\PrivaVend\assets\privavend_logo.png` (or `privavend_logo.jpeg`)
 - **Project Media / Banner (16:9 Cover):**  
   File located at: `D:\BOSS BATTLE\PrivaVend\assets\privavend_banner.png`
+
+### Recommended Screenshots to Upload into Devfolio:
+1. **Interactive DVM Terminal:** `https://priva-vend.vercel.app/app#terminal` (Show prompt + "Transmit Job & Settle Ecash" output)
+2. **Raw NIP-44 v2 Ciphertext Mode:** Click "Mode: Decrypted Output" to toggle to "Mode: Raw NIP-44 Ciphertext"
+3. **Live Relay Mesh:** `https://priva-vend.vercel.app/app#network` (Show connected Nostr relays and ping status)
+4. **Cashu BDHKE Math:** `https://priva-vend.vercel.app/app#bdhke` (Show NUT-00 elliptic curve formula)
+5. **Terminal Pytest Verification:** Screenshot of terminal showing `14 passed in 1.26s` (`python -m pytest -v`)
 
 ---
 
