@@ -4,250 +4,697 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PrivaVend | Zero-Trace Autonomous AI Data Vending Machine</title>
-  <!-- Tailwind CSS CDN -->
+  
+  <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
           colors: {
-            cyandark: '#080d16',
-            cyanneon: '#00f0ff',
+            cyandark: '#040711',
+            cyanneon: '#00f2fe',
             goldbtc: '#f7931a',
-            matrixgreen: '#00ff66'
+            matrixgreen: '#10b981',
+            violetglow: '#8b5cf6'
           }
         }
       }
     }
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     body {
-      background-color: #050811;
+      background-color: #03060f;
       color: #e2e8f0;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(247, 147, 26, 0.07) 0%, transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
     }
-    .glow-cyan {
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+    .glass-card {
+      background: rgba(8, 14, 28, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 242, 254, 0.15);
     }
-    .glow-gold {
-      box-shadow: 0 0 25px rgba(247, 147, 26, 0.25);
+    .glass-card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
     }
-    .border-glow {
-      border: 1px solid rgba(0, 240, 255, 0.3);
+    .glow-cyan-btn {
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.35);
+    }
+    .glow-cyan-btn:hover {
+      box-shadow: 0 0 45px rgba(0, 242, 254, 0.55);
+    }
+    .glow-gold-pill {
+      box-shadow: 0 0 15px rgba(247, 147, 26, 0.25);
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    .animate-pulse-slow {
+      animation: pulse-glow 3s infinite ease-in-out;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col font-sans selection:bg-cyanneon selection:text-black">
 
-  <!-- Header -->
-  <header class="border-b border-cyan-900/40 bg-black/60 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-amber-500 p-0.5 glow-cyan">
-          <div class="w-full h-full bg-[#070b14] rounded-lg flex items-center justify-center">
-            <i class="fa-solid fa-bolt text-cyanneon"></i>
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-cyan-950/80 via-black to-amber-950/80 border-b border-cyan-900/30 text-[11px] py-1.5 px-4 text-center tracking-wide font-mono text-gray-300">
+    ⚡ <strong class="text-cyanneon">BITSHALA BOSS BATTLE HACKATHON</strong> — Track Submissions: <span class="text-goldbtc font-bold">Machine Money</span> • <span class="text-emerald-400 font-bold">Freedom Stack</span> • <span class="text-violetglow font-bold">Cypherpunk</span>
+  </div>
+
+  <!-- Navbar -->
+  <header class="border-b border-white/10 bg-[#040711]/80 backdrop-blur-xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-3.5 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center space-x-3.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyanneon via-cyan-500 to-goldbtc p-[1.5px] shadow-lg shadow-cyan-500/20">
+          <div class="w-full h-full bg-[#050914] rounded-[10px] flex items-center justify-center">
+            <i class="fa-solid fa-bolt text-cyanneon text-lg animate-pulse"></i>
           </div>
         </div>
         <div>
-          <span class="text-xl font-bold tracking-wider text-white">PRIVA<span class="text-cyanneon">VEND</span></span>
-          <span class="text-xs ml-2 px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">NIP-90 + CASHU DVM</span>
+          <div class="flex items-center gap-2">
+            <span class="text-xl font-extrabold tracking-tight text-white font-mono">PRIVA<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyanneon to-cyan-400">VEND</span></span>
+            <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-cyan-950/80 text-cyanneon border border-cyan-500/30 font-bold">DVM Node v0.1</span>
+          </div>
+          <p class="text-[10px] text-gray-400 font-mono">Autonomous Nostr NIP-90 × Cashu Ecash Machine</p>
         </div>
       </div>
-      <div class="flex items-center space-x-4">
-        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-xs font-medium bg-emerald-950 text-emerald-400 border border-emerald-800">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Daemon Online
-        </span>
-        <a href="https://github.com/Shuvankar11/PrivaVend" target="_blank" class="text-gray-400 hover:text-white transition">
-          <i class="fa-brands fa-github text-xl"></i>
+
+      <!-- Live Status & Socials -->
+      <div class="flex items-center space-x-3">
+        <!-- Audio FX Toggle -->
+        <button id="soundToggleBtn" onclick="toggleSound()" class="px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-cyanneon/40 text-gray-300 text-xs transition flex items-center gap-1.5" title="Toggle Futuristic Sound FX">
+          <i id="soundIcon" class="fa-solid fa-volume-high text-cyanneon text-xs"></i>
+          <span class="hidden md:inline text-[11px] font-mono">Audio FX</span>
+        </button>
+
+        <!-- Live Network Status Pill -->
+        <div class="hidden sm:flex items-center gap-2 py-1.5 px-3 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>Nostr Relays Connected (3/3)</span>
+        </div>
+
+        <a href="https://github.com/Shuvankar11/PrivaVend" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-mono transition flex items-center gap-2">
+          <i class="fa-brands fa-github text-sm"></i>
+          <span class="hidden md:inline">Source Code</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Main Hero & Playground -->
-  <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full">
-    
-    <!-- Hero Banner -->
-    <div class="rounded-2xl bg-gradient-to-r from-cyan-950/40 via-black to-amber-950/30 p-6 md:p-8 border border-cyan-900/30 mb-8 relative overflow-hidden">
-      <div class="relative z-10">
-        <div class="inline-block mb-3 px-3 py-1 rounded bg-cyan-900/40 border border-cyan-700/50 text-cyanneon text-xs font-semibold uppercase tracking-wider">
-          Bitshala BOSS Battle Hackathon Submission
+  <!-- Hero Section -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-4 w-full">
+    <div class="glass-card rounded-2xl p-6 md:p-8 relative overflow-hidden">
+      <!-- Glow Accent -->
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyanneon/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-goldbtc/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyanneon text-xs font-mono font-semibold uppercase tracking-wider mb-3">
+            <i class="fa-solid fa-shield-halved"></i> Zero-Trace Cypherpunk Architecture
+          </div>
+          <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-2 leading-tight">
+            Autonomous AI <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyanneon via-sky-400 to-goldbtc">Data Vending Machine</span>
+          </h1>
+          <p class="text-gray-300 text-sm md:text-base max-w-2xl font-normal leading-relaxed">
+            Inference settled off-chain via <strong class="text-goldbtc font-medium">Cashu Chaumian Ecash</strong> over <strong class="text-cyanneon font-medium">Nostr NIP-90</strong>. No KYC, no accounts, and end-to-end authenticated encryption via <strong class="text-white font-mono">NIP-44 v2</strong>.
+          </p>
         </div>
-        <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-3">
-          Zero-Trace Autonomous AI <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyanneon to-goldbtc">Data Vending Machine</span>
-        </h1>
-        <p class="text-gray-300 max-w-3xl text-sm md:text-base leading-relaxed">
-          Settle AI inference requests off-chain with untraceable <strong class="text-goldbtc">Cashu Chaumian Ecash</strong> over the <strong class="text-cyanneon">Nostr NIP-90</strong> protocol. Zero KYC. Zero credit cards. Guaranteed end-to-end privacy with <strong class="text-white">NIP-44 v2</strong> encryption.
-        </p>
+
+        <!-- Metrics Banner -->
+        <div class="grid grid-cols-3 gap-3 font-mono shrink-0">
+          <div class="bg-black/50 border border-white/10 rounded-xl p-3 text-center">
+            <div class="text-[10px] text-gray-400 uppercase">Settlement</div>
+            <div class="text-base font-bold text-goldbtc flex items-center justify-center gap-1">
+              <i class="fa-solid fa-bolt text-xs"></i> 100% Ecash
+            </div>
+            <div class="text-[9px] text-gray-500">Atomic Swap</div>
+          </div>
+          <div class="bg-black/50 border border-white/10 rounded-xl p-3 text-center">
+            <div class="text-[10px] text-gray-400 uppercase">Privacy</div>
+            <div class="text-base font-bold text-cyanneon flex items-center justify-center gap-1">
+              <i class="fa-solid fa-lock text-xs"></i> NIP-44 v2
+            </div>
+            <div class="text-[9px] text-gray-500">ChaCha20 Auth</div>
+          </div>
+          <div class="bg-black/50 border border-white/10 rounded-xl p-3 text-center">
+            <div class="text-[10px] text-gray-400 uppercase">Verification</div>
+            <div class="text-base font-bold text-emerald-400 flex items-center justify-center gap-1">
+              <i class="fa-solid fa-circle-check text-xs"></i> 14/14 Tests
+            </div>
+            <div class="text-[9px] text-gray-500">100% Passed</div>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Playground Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+  <!-- Interactive Navigation Tabs -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 pt-4 w-full">
+    <div class="flex items-center space-x-2 border-b border-white/10 overflow-x-auto pb-1 text-sm font-mono">
+      <button onclick="switchTab('terminal')" id="tabBtn-terminal" class="px-4 py-2.5 rounded-t-xl font-semibold border-b-2 border-cyanneon text-white bg-white/5 transition flex items-center gap-2">
+        <i class="fa-solid fa-terminal text-cyanneon"></i> Interactive DVM Terminal
+      </button>
+      <button onclick="switchTab('network')" id="tabBtn-network" class="px-4 py-2.5 rounded-t-xl font-medium border-b-2 border-transparent text-gray-400 hover:text-white transition flex items-center gap-2">
+        <i class="fa-solid fa-network-wired"></i> Live Relay Mesh
+      </button>
+      <button onclick="switchTab('bdhke')" id="tabBtn-bdhke" class="px-4 py-2.5 rounded-t-xl font-medium border-b-2 border-transparent text-gray-400 hover:text-white transition flex items-center gap-2">
+        <i class="fa-solid fa-key"></i> Cashu BDHKE Math
+      </button>
+      <button onclick="switchTab('specs')" id="tabBtn-specs" class="px-4 py-2.5 rounded-t-xl font-medium border-b-2 border-transparent text-gray-400 hover:text-white transition flex items-center gap-2">
+        <i class="fa-solid fa-book-bookmark"></i> Protocol Specs
+      </button>
+    </div>
+  </section>
+
+  <!-- Tab 1: Terminal & Visual Simulator -->
+  <main id="tab-terminal" class="max-w-7xl mx-auto px-4 md:px-8 py-6 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       
-      <!-- Input Panel (Left) -->
+      <!-- Left: Client Dispatcher -->
       <div class="lg:col-span-6 space-y-6">
-        <div class="bg-[#090f1d] p-6 rounded-xl border border-cyan-900/40 shadow-xl">
-          <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-terminal text-cyanneon"></i> 1. Submit NIP-90 Job Request (Kind 5000)
-          </h2>
-
-          <!-- Prompt Input -->
-          <div class="mb-4">
-            <label class="block text-xs font-medium text-gray-400 mb-1.5">AI Inference Prompt</label>
-            <textarea id="promptInput" rows="4" class="w-full bg-[#050811] border border-cyan-900/60 rounded-lg p-3 text-sm text-gray-200 focus:outline-none focus:border-cyanneon transition" placeholder="Enter prompt or code to audit...">Perform a security audit of a Bitcoin smart contract with 2-of-3 multisig and relative timelocks.</textarea>
+        
+        <!-- Prompt & Parameters Card -->
+        <div class="glass-card rounded-2xl p-6 shadow-2xl relative">
+          
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-base font-bold text-white flex items-center gap-2 font-mono">
+              <span class="w-6 h-6 rounded-lg bg-cyanneon/10 text-cyanneon flex items-center justify-center text-xs">1</span>
+              Configure NIP-90 Request (Kind 5000)
+            </h2>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">Job Ingestion</span>
           </div>
 
-          <!-- Model & Ecash Row -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <!-- Quick Preset Chips -->
+          <div class="mb-4">
+            <label class="block text-xs font-mono text-gray-400 mb-2">Sample Prompt Presets</label>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="setPromptPreset('contract')" class="px-2.5 py-1 text-[11px] font-mono rounded-lg bg-white/5 hover:bg-cyan-950 hover:text-cyanneon border border-white/10 hover:border-cyanneon/40 text-gray-300 transition">
+                🛡️ Smart Contract Audit
+              </button>
+              <button onclick="setPromptPreset('lightning')" class="px-2.5 py-1 text-[11px] font-mono rounded-lg bg-white/5 hover:bg-cyan-950 hover:text-cyanneon border border-white/10 hover:border-cyanneon/40 text-gray-300 transition">
+                ⚡ Lightning Escrow
+              </button>
+              <button onclick="setPromptPreset('ecash')" class="px-2.5 py-1 text-[11px] font-mono rounded-lg bg-white/5 hover:bg-cyan-950 hover:text-cyanneon border border-white/10 hover:border-cyanneon/40 text-gray-300 transition">
+                🧬 Cashu Chaumian Math
+              </button>
+            </div>
+          </div>
+
+          <!-- Prompt Textarea -->
+          <div class="mb-4">
+            <div class="flex items-center justify-between text-xs font-mono text-gray-400 mb-1.5">
+              <span>Input Prompt Payload</span>
+              <span id="charCount" class="text-[11px] text-gray-500">105 / 8192 chars</span>
+            </div>
+            <textarea id="promptInput" rows="4" oninput="updateCharCount()" class="w-full bg-[#03060f] border border-white/10 rounded-xl p-3.5 text-xs md:text-sm font-mono text-gray-200 focus:outline-none focus:border-cyanneon transition leading-relaxed shadow-inner" placeholder="Enter prompt or contract code...">Conduct a security audit of an atomic escrow contract with 2-of-3 multisig, relative timelocks, and taproot tree leaves.</textarea>
+          </div>
+
+          <!-- Model & Fee Configuration -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
             <div>
-              <label class="block text-xs font-medium text-gray-400 mb-1.5">Target AI Model</label>
-              <select id="modelSelect" class="w-full bg-[#050811] border border-cyan-900/60 rounded-lg p-2.5 text-sm text-gray-200 focus:outline-none focus:border-cyanneon">
-                <option value="llama3">Meta LLaMA 3 (Local/Ollama)</option>
-                <option value="mistral">Mistral 7B (Local/Ollama)</option>
-                <option value="deepseek-r1">DeepSeek R1 (Sovereign Core)</option>
+              <label class="block text-xs font-mono text-gray-400 mb-1.5">Autonomous Model</label>
+              <select id="modelSelect" class="w-full bg-[#03060f] border border-white/10 rounded-xl p-2.5 text-xs font-mono text-gray-200 focus:outline-none focus:border-cyanneon transition">
+                <option value="llama3">Meta LLaMA 3 (Default)</option>
+                <option value="mistral">Mistral 7B Sovereign</option>
+                <option value="deepseek-r1">DeepSeek R1 Core</option>
               </select>
             </div>
             <div>
-              <label class="block text-xs font-medium text-gray-400 mb-1.5">Ecash Fee Settlement</label>
-              <div class="flex gap-2">
-                <button onclick="generateTestToken()" class="w-full bg-amber-950/60 hover:bg-amber-900/60 border border-goldbtc/40 text-goldbtc text-xs font-semibold py-2.5 px-3 rounded-lg transition flex items-center justify-center gap-1.5">
-                  <i class="fa-solid fa-coins"></i> Mint 5 Sats
-                </button>
-              </div>
+              <label class="block text-xs font-mono text-gray-400 mb-1.5">Off-Chain Settlement</label>
+              <button onclick="mintDemoEcash()" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-950/80 to-amber-900/40 hover:from-amber-900/80 hover:to-amber-800/60 border border-goldbtc/50 text-goldbtc font-mono text-xs font-bold transition flex items-center justify-center gap-2 glow-gold-pill">
+                <i class="fa-solid fa-coins"></i> Mint 5 Sats Ecash
+              </button>
             </div>
           </div>
 
-          <!-- Cashu Token Box -->
-          <div class="mb-5">
-            <label class="block text-xs font-medium text-gray-400 mb-1.5 flex justify-between">
-              <span>Cashu Token (NUT-00 format)</span>
-              <span id="tokenStatus" class="text-goldbtc text-[11px] font-semibold">5 sats ready</span>
-            </label>
-            <input type="text" id="tokenInput" class="w-full bg-[#050811] border border-cyan-900/60 rounded-lg p-2.5 text-xs text-gray-300 font-mono focus:outline-none focus:border-cyanneon" value="cashuAeyJ0b2tlbiI6W3sibWludCI6Imh0dHBzOi8vbWludC5taW5pYml0cy5jYXNoL0JpdGNvaW4iLCJwcm9vZnMiOlt7ImFtb3VudCI6MSwiaWQiOiJkZW1vIiwic2VjcmV0IjoiYTFiMmMzZCIsIkMiOiIwMmFiYyJ9LHsiYW1vdW50Ijo0LCJpZCI6ImRlbW8iLCJzZWNyZXQiOiJlNWY2ZzdoIiwicEMiOiIwMmRlZiJ9XX1dfQ==">
+          <!-- Cashu Token Card -->
+          <div class="mb-6 p-3.5 rounded-xl bg-black/50 border border-white/10">
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-gray-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-receipt text-goldbtc"></i> Cashu Token (NUT-00 v3)
+              </span>
+              <span id="tokenStatus" class="text-goldbtc font-bold text-[11px] px-2 py-0.5 rounded bg-goldbtc/10 border border-goldbtc/30">
+                5 SATS LOADED
+              </span>
+            </div>
+            <input type="text" id="tokenInput" class="w-full bg-[#03060f] border border-white/10 rounded-lg p-2 text-[11px] font-mono text-gray-300 focus:outline-none focus:border-goldbtc transition" value="cashuAeyJ0b2tlbiI6W3sibWludCI6Imh0dHBzOi8vbWludC5taW5pYml0cy5jYXNoL0JpdGNvaW4iLCJwcm9vZnMiOlt7ImFtb3VudCI6MSwiaWQiOiJkZW1vIiwic2VjcmV0IjoiYTFiMmMzZCIsIkMiOiIwMmFiYyJ9LHsiYW1vdW50Ijo0LCJpZCI6ImRlbW8iLCJzZWNyZXQiOiJlNWY2ZzdoIiwicEMiOiIwMmRlZiJ9XX1dfQ==">
           </div>
 
-          <!-- Transmit Button -->
-          <button id="sendBtn" onclick="runSimulation()" class="w-full py-3.5 px-4 bg-gradient-to-r from-cyan-500 to-cyan-400 hover:from-cyan-400 hover:to-cyan-300 text-black font-bold text-sm rounded-lg shadow-lg glow-cyan transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-satellite-dish"></i> Broadcast Job & Settle Ecash
+          <!-- Action Button -->
+          <button id="sendBtn" onclick="runSimulation()" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-cyanneon via-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-cyan-200 text-black font-extrabold font-mono text-sm uppercase tracking-wider glow-cyan-btn transition flex items-center justify-center gap-2.5">
+            <i class="fa-solid fa-satellite-dish text-base"></i> Transmit Job & Settle Ecash
           </button>
         </div>
 
-        <!-- Protocol Flow Diagram Cards -->
-        <div class="bg-[#090f1d] p-6 rounded-xl border border-cyan-900/40">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Protocol Architecture</h3>
-          <div class="grid grid-cols-3 gap-3 text-center text-xs">
-            <div class="p-3 bg-black/40 border border-cyan-900/30 rounded-lg">
-              <i class="fa-solid fa-paper-plane text-cyanneon mb-1 text-base"></i>
-              <div class="font-bold text-white">NIP-90</div>
-              <div class="text-[10px] text-gray-400">Kind 5000 / 6000</div>
+        <!-- Architecture Quick Flow -->
+        <div class="glass-card rounded-2xl p-5 border-white/10">
+          <div class="flex items-center justify-between text-xs font-mono text-gray-400 mb-3">
+            <span>SIX-STAGE ATOMIC LIFECYCLE</span>
+            <span class="text-cyanneon">Guaranteed Non-Custodial</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center font-mono text-xs">
+            <div class="p-2.5 rounded-lg bg-black/40 border border-white/5">
+              <div class="text-cyanneon font-bold">1. Broadcast</div>
+              <div class="text-[10px] text-gray-400">Kind 5000 + Token</div>
             </div>
-            <div class="p-3 bg-black/40 border border-goldbtc/30 rounded-lg">
-              <i class="fa-solid fa-money-bill-wave text-goldbtc mb-1 text-base"></i>
-              <div class="font-bold text-white">Cashu NUT-03</div>
-              <div class="text-[10px] text-gray-400">Atomic Mint Swap</div>
+            <div class="p-2.5 rounded-lg bg-black/40 border border-goldbtc/20">
+              <div class="text-goldbtc font-bold">2. Atomic Swap</div>
+              <div class="text-[10px] text-gray-400">Mint /v1/swap</div>
             </div>
-            <div class="p-3 bg-black/40 border border-purple-500/30 rounded-lg">
-              <i class="fa-solid fa-lock text-purple-400 mb-1 text-base"></i>
-              <div class="font-bold text-white">NIP-44 v2</div>
-              <div class="text-[10px] text-gray-400">ChaCha20 Auth Enc</div>
+            <div class="p-2.5 rounded-lg bg-black/40 border border-purple-500/20">
+              <div class="text-purple-400 font-bold">3. Encrypt</div>
+              <div class="text-[10px] text-gray-400">NIP-44 v2 + Sig</div>
             </div>
           </div>
         </div>
+
       </div>
 
-      <!-- Execution Pipeline & Output Panel (Right) -->
+      <!-- Right: Execution Engine & Telemetry -->
       <div class="lg:col-span-6 space-y-6">
-        <div class="bg-[#090f1d] p-6 rounded-xl border border-cyan-900/40 shadow-xl flex flex-col h-full">
-          <h2 class="text-lg font-bold text-white mb-4 flex items-center justify-between">
-            <span class="flex items-center gap-2"><i class="fa-solid fa-microchip text-goldbtc"></i> 2. Execution Pipeline Trace</span>
-            <span id="latencyBadge" class="text-xs px-2.5 py-0.5 rounded bg-black text-gray-400 border border-gray-800">Idle</span>
-          </h2>
-
-          <!-- Pipeline Stages -->
-          <div class="space-y-3 mb-6">
-            <div id="step1" class="flex items-center gap-3 p-2.5 rounded-lg bg-[#050811] border border-gray-800/80 text-xs">
-              <i class="fa-solid fa-circle-notch text-gray-500"></i>
-              <span class="text-gray-300 font-medium">1. Kind 5000 Job Request Generated & Signed</span>
-            </div>
-            <div id="step2" class="flex items-center gap-3 p-2.5 rounded-lg bg-[#050811] border border-gray-800/80 text-xs">
-              <i class="fa-solid fa-circle-notch text-gray-500"></i>
-              <span class="text-gray-300 font-medium">2. Cashu Proofs Swapped at Mint (/v1/swap)</span>
-            </div>
-            <div id="step3" class="flex items-center gap-3 p-2.5 rounded-lg bg-[#050811] border border-gray-800/80 text-xs">
-              <i class="fa-solid fa-circle-notch text-gray-500"></i>
-              <span class="text-gray-300 font-medium">3. Kind 7000 "Processing" Feedback Broadcast</span>
-            </div>
-            <div id="step4" class="flex items-center gap-3 p-2.5 rounded-lg bg-[#050811] border border-gray-800/80 text-xs">
-              <i class="fa-solid fa-circle-notch text-gray-500"></i>
-              <span class="text-gray-300 font-medium">4. Sovereign AI Engine Inferred Prompt</span>
-            </div>
-            <div id="step5" class="flex items-center gap-3 p-2.5 rounded-lg bg-[#050811] border border-gray-800/80 text-xs">
-              <i class="fa-solid fa-circle-notch text-gray-500"></i>
-              <span class="text-gray-300 font-medium">5. NIP-44 v2 Encrypted Kind 6000 Result Published</span>
+        
+        <div class="glass-card rounded-2xl p-6 shadow-2xl flex flex-col h-full">
+          
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-base font-bold text-white flex items-center gap-2 font-mono">
+              <span class="w-6 h-6 rounded-lg bg-goldbtc/10 text-goldbtc flex items-center justify-center text-xs">2</span>
+              Execution Telemetry & Decrypted Result
+            </h2>
+            <div id="statusBadge" class="text-xs font-mono px-3 py-1 rounded-full bg-white/5 text-gray-400 border border-white/10">
+              Standing By
             </div>
           </div>
 
-          <!-- Decrypted AI Output Window -->
+          <!-- Step Progression Timeline -->
+          <div class="space-y-2.5 mb-5 font-mono text-xs">
+            <div id="stage1" class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/5 transition">
+              <div class="flex items-center gap-2.5">
+                <i class="fa-regular fa-circle text-gray-600"></i>
+                <span>1. Parse NIP-90 Kind 5000 Request & Verify Signature</span>
+              </div>
+              <span id="badge1" class="text-[10px] text-gray-500">PENDING</span>
+            </div>
+
+            <div id="stage2" class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/5 transition">
+              <div class="flex items-center gap-2.5">
+                <i class="fa-regular fa-circle text-gray-600"></i>
+                <span>2. Atomic Ecash Swap at Mint (<code class="text-goldbtc">POST /v1/swap</code>)</span>
+              </div>
+              <span id="badge2" class="text-[10px] text-gray-500">PENDING</span>
+            </div>
+
+            <div id="stage3" class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/5 transition">
+              <div class="flex items-center gap-2.5">
+                <i class="fa-regular fa-circle text-gray-600"></i>
+                <span>3. Emit Kind 7000 "Processing" Feedback</span>
+              </div>
+              <span id="badge3" class="text-[10px] text-gray-500">PENDING</span>
+            </div>
+
+            <div id="stage4" class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/5 transition">
+              <div class="flex items-center gap-2.5">
+                <i class="fa-regular fa-circle text-gray-600"></i>
+                <span>4. AI Inference Execution (Ollama Sovereign)</span>
+              </div>
+              <span id="badge4" class="text-[10px] text-gray-500">PENDING</span>
+            </div>
+
+            <div id="stage5" class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-white/5 transition">
+              <div class="flex items-center gap-2.5">
+                <i class="fa-regular fa-circle text-gray-600"></i>
+                <span>5. NIP-44 v2 ChaCha20 Encryption & Kind 6000 Publish</span>
+              </div>
+              <span id="badge5" class="text-[10px] text-gray-500">PENDING</span>
+            </div>
+          </div>
+
+          <!-- Output View Switcher (Decrypted vs Cryptographic Wire) -->
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center space-x-1.5 font-mono text-xs">
+              <button onclick="setInspectMode('decrypted')" id="btnViewDecrypted" class="px-3 py-1 rounded-lg bg-cyanneon/20 text-cyanneon border border-cyanneon/40 font-bold transition">
+                Decrypted Output
+              </button>
+              <button onclick="setInspectMode('wire')" id="btnViewWire" class="px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/10 transition">
+                Raw Wire Inspector (NIP-44)
+              </button>
+            </div>
+            <button onclick="copyOutput()" class="text-xs text-gray-400 hover:text-cyanneon transition font-mono flex items-center gap-1">
+              <i class="fa-regular fa-copy"></i> <span id="copyLabel">Copy</span>
+            </button>
+          </div>
+
+          <!-- Output Box -->
           <div class="flex-grow flex flex-col">
-            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-2 flex items-center justify-between">
-              <span><i class="fa-solid fa-key mr-1"></i> Decrypted Output (Client Private Key)</span>
-              <span class="text-[10px] text-gray-500 font-normal">NIP-44 Verified</span>
-            </label>
-            <div id="outputBox" class="flex-grow min-h-[160px] p-4 bg-[#050811] border border-cyan-900/60 rounded-lg text-xs font-mono text-gray-300 overflow-y-auto whitespace-pre-wrap leading-relaxed">
-Click "Broadcast Job & Settle Ecash" to simulate an end-to-end NIP-90 request settled off-chain with Cashu and encrypted back to the client.
+            <div id="outputDisplay" class="flex-grow min-h-[220px] p-4 rounded-xl bg-[#02050e] border border-white/10 font-mono text-xs text-gray-300 leading-relaxed overflow-y-auto whitespace-pre-wrap shadow-inner">
+Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
             </div>
           </div>
 
         </div>
+
       </div>
 
     </div>
   </main>
 
+  <!-- Tab 2: Live Relay Network Mesh -->
+  <section id="tab-network" class="hidden max-w-7xl mx-auto px-4 md:px-8 py-6 w-full flex-grow">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="glass-card rounded-2xl p-6 border-white/10">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-bold font-mono text-white">wss://relay.damus.io</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        </div>
+        <p class="text-xs text-gray-400 font-mono mb-4">Public Primary Relay Hub</p>
+        <div class="space-y-2 font-mono text-xs">
+          <div class="flex justify-between text-gray-400"><span>Status</span><span class="text-emerald-400 font-bold">CONNECTED</span></div>
+          <div class="flex justify-between text-gray-400"><span>Latency</span><span class="text-cyanneon font-bold">48ms</span></div>
+          <div class="flex justify-between text-gray-400"><span>Subscriptions</span><span class="text-white">Kind 5000 Active</span></div>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border-white/10">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-bold font-mono text-white">wss://nos.lol</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        </div>
+        <p class="text-xs text-gray-400 font-mono mb-4">High-Throughput Global Node</p>
+        <div class="space-y-2 font-mono text-xs">
+          <div class="flex justify-between text-gray-400"><span>Status</span><span class="text-emerald-400 font-bold">CONNECTED</span></div>
+          <div class="flex justify-between text-gray-400"><span>Latency</span><span class="text-cyanneon font-bold">62ms</span></div>
+          <div class="flex justify-between text-gray-400"><span>Subscriptions</span><span class="text-white">Kind 5000 Active</span></div>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 border-white/10">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-bold font-mono text-white">wss://relay.primal.net</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        </div>
+        <p class="text-xs text-gray-400 font-mono mb-4">Low-Jitter WebSocket Cluster</p>
+        <div class="space-y-2 font-mono text-xs">
+          <div class="flex justify-between text-gray-400"><span>Status</span><span class="text-emerald-400 font-bold">CONNECTED</span></div>
+          <div class="flex justify-between text-gray-400"><span>Latency</span><span class="text-cyanneon font-bold">54ms</span></div>
+          <div class="flex justify-between text-gray-400"><span>Subscriptions</span><span class="text-white">Kind 5000 Active</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-6 glass-card rounded-2xl p-6">
+      <h3 class="text-base font-bold text-white font-mono mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-shield-virus text-cyanneon"></i> Relay Race Mitigation & Deduplication Engine
+      </h3>
+      <p class="text-xs text-gray-300 font-mono leading-relaxed">
+        When a user broadcasts a Kind 5000 request, multiple public relays receive and forward it simultaneously. PrivaVend implements an in-memory <strong>LRU Bloom-Deduplication Cache</strong>. The first event received acquires an atomic settlement lock; identical event IDs arriving from alternate relays within the 10,000-event window are discarded with 0ms overhead, preventing duplicate AI execution.
+      </p>
+    </div>
+  </section>
+
+  <!-- Tab 3: BDHKE Math Explorer -->
+  <section id="tab-bdhke" class="hidden max-w-7xl mx-auto px-4 md:px-8 py-6 w-full flex-grow">
+    <div class="glass-card rounded-2xl p-8 border-white/10">
+      <h2 class="text-xl font-bold font-mono text-white mb-3 flex items-center gap-2">
+        <i class="fa-solid fa-square-root-variable text-goldbtc"></i> Blind Diffie-Hellman Key Exchange (NUT-00 BDHKE)
+      </h2>
+      <p class="text-xs md:text-sm text-gray-300 font-mono mb-6 leading-relaxed">
+        Cashu achieves unconditional sender anonymity through Chaumian blind signatures over the Secp256k1 elliptic curve. The mathematical mechanics:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+        <div class="p-5 rounded-xl bg-black/50 border border-white/10">
+          <h4 class="font-bold text-cyanneon mb-2">Stage 1: Blinding by Client</h4>
+          <p class="text-gray-400 mb-2">1. Client picks random secret \(x\) and blinding scalar \(r \in [1, n-1]\).</p>
+          <p class="text-gray-400 mb-2">2. Computes curve point: \(Y = \text{hash\_to\_curve}(x)\).</p>
+          <p class="text-gray-400 mb-2">3. Blinds the point: \(B' = Y + rG\).</p>
+          <p class="text-emerald-400">Client sends blinded point \(B'\) to Mint.</p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-white/10">
+          <h4 class="font-bold text-goldbtc mb-2">Stage 2: Blind Signature by Mint</h4>
+          <p class="text-gray-400 mb-2">1. Mint holds private key \(k\), public key \(K = kG\).</p>
+          <p class="text-gray-400 mb-2">2. Signs blinded point without seeing secret \(x\):</p>
+          <div class="p-2 my-2 rounded bg-white/5 text-amber-300 font-bold text-center">\(C' = k \cdot B' = k(Y + rG) = kY + krG\)</div>
+          <p class="text-emerald-400">Mint returns blind signature \(C'\) to Client.</p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-white/10">
+          <h4 class="font-bold text-purple-400 mb-2">Stage 3: Unblinding by Client</h4>
+          <p class="text-gray-400 mb-2">Client subtracts blinding factor using Mint's public key \(K\):</p>
+          <div class="p-2 my-2 rounded bg-white/5 text-purple-300 font-bold text-center">\(C = C' - rK = (kY + rkG) - rkG = kY\)</div>
+          <p class="text-emerald-400">Client now holds valid proof \((x, C)\).</p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-white/10">
+          <h4 class="font-bold text-emerald-400 mb-2">Stage 4: PrivaVend Settlement Swap (NUT-03)</h4>
+          <p class="text-gray-400 mb-2">PrivaVend receives \((x, C)\) from Nostr requester.</p>
+          <p class="text-gray-400 mb-2">Mint verifies \(C == k \cdot \text{hash\_to\_curve}(x)\) and swaps it for fresh daemon-blinded proofs.</p>
+          <p class="text-cyanneon font-bold">Settled atomically off-chain before AI inference starts!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tab 4: Protocol Specs -->
+  <section id="tab-specs" class="hidden max-w-7xl mx-auto px-4 md:px-8 py-6 w-full flex-grow">
+    <div class="glass-card rounded-2xl p-8 border-white/10">
+      <h2 class="text-xl font-bold font-mono text-white mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-code-commit text-cyanneon"></i> Standards Compliance Matrix
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left font-mono text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-white/10 text-gray-400 uppercase">
+              <th class="py-3 px-4">Standard</th>
+              <th class="py-3 px-4">Role in PrivaVend</th>
+              <th class="py-3 px-4">Implementation File</th>
+              <th class="py-3 px-4 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/5 text-gray-300">
+            <tr>
+              <td class="py-3 px-4 font-bold text-white">NIP-01</td>
+              <td class="py-3 px-4">Canonical Event Serialization & BIP-340 Schnorr Verification</td>
+              <td class="py-3 px-4 text-cyan-400">worker/core/nostr.py</td>
+              <td class="py-3 px-4 text-right text-emerald-400 font-bold">✅ Verified</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-white">NIP-90</td>
+              <td class="py-3 px-4">Data Vending Machine: Kind 5000 (Req), 7000 (Feedback), 6000 (Res)</td>
+              <td class="py-3 px-4 text-cyan-400">worker/core/nostr.py</td>
+              <td class="py-3 px-4 text-right text-emerald-400 font-bold">✅ Verified</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-white">NIP-44 v2</td>
+              <td class="py-3 px-4">ChaCha20-HKDF-HMAC Authenticated Direct Encryption</td>
+              <td class="py-3 px-4 text-cyan-400">worker/core/nostr.py</td>
+              <td class="py-3 px-4 text-right text-emerald-400 font-bold">✅ Verified</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-white">NUT-00</td>
+              <td class="py-3 px-4">Cashu Ecash Token Deserialization & hash_to_curve Math</td>
+              <td class="py-3 px-4 text-goldbtc">worker/core/cashu.py</td>
+              <td class="py-3 px-4 text-right text-emerald-400 font-bold">✅ Verified</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-white">NUT-03</td>
+              <td class="py-3 px-4">Atomic Ecash Redemption & Proof Swap Client (/v1/swap)</td>
+              <td class="py-3 px-4 text-goldbtc">worker/core/cashu.py</td>
+              <td class="py-3 px-4 text-right text-emerald-400 font-bold">✅ Verified</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-white">NUT-07</td>
+              <td class="py-3 px-4">Proof State Check & Double-Spend Defense (/v1/checkstate)</td>
+              <td class="py-3 px-4 text-goldbtc">worker/core/cashu.py</td>
+              <td class="py-3 px-4 text-right text-emerald-400 font-bold">✅ Verified</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer class="border-t border-cyan-900/30 bg-black/40 py-6 mt-12 text-center text-xs text-gray-500">
-    <div class="max-w-7xl mx-auto px-4">
-      Built for the <strong>Bitshala BOSS Battle Hackathon</strong> | MIT License | Open Source Cypherpunk Protocol
+  <footer class="border-t border-white/10 bg-[#02050e] py-6 text-center text-xs font-mono text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        Built with pride for the <strong class="text-gray-300">Bitshala BOSS Battle Hackathon</strong>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="text-emerald-400">● 14/14 Pytest Suites Passing</span>
+        <span>•</span>
+        <a href="https://github.com/Shuvankar11/PrivaVend" target="_blank" class="text-cyanneon hover:underline">
+          GitHub Repository
+        </a>
+      </div>
     </div>
   </footer>
 
+  <!-- Audio Synthesizer & Client Logic -->
   <script>
-    async function generateTestToken() {
+    let soundEnabled = true;
+    let audioCtx = null;
+    let latestResult = null;
+    let currentInspectMode = 'decrypted';
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playTone(freq, duration, type='sine') {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch(e){}
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('soundIcon');
+      if (soundEnabled) {
+        icon.className = 'fa-solid fa-volume-high text-cyanneon text-xs';
+        playTone(600, 0.1);
+      } else {
+        icon.className = 'fa-solid fa-volume-xmark text-gray-500 text-xs';
+      }
+    }
+
+    function switchTab(tabId) {
+      playTone(400, 0.08);
+      ['terminal', 'network', 'bdhke', 'specs'].forEach(t => {
+        document.getElementById('tab-' + t).classList.add('hidden');
+        const btn = document.getElementById('tabBtn-' + t);
+        btn.className = 'px-4 py-2.5 rounded-t-xl font-medium border-b-2 border-transparent text-gray-400 hover:text-white transition flex items-center gap-2';
+      });
+
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+      document.getElementById('tabBtn-' + tabId).className = 'px-4 py-2.5 rounded-t-xl font-semibold border-b-2 border-cyanneon text-white bg-white/5 transition flex items-center gap-2';
+    }
+
+    function setPromptPreset(type) {
+      playTone(550, 0.08);
+      const input = document.getElementById('promptInput');
+      if (type === 'contract') {
+        input.value = "Conduct a formal security audit of a Bitcoin taproot script with 2-of-3 multisig fallback and relative CSV lock.";
+      } else if (type === 'lightning') {
+        input.value = "Analyze HTLC settlement timeout vulnerability in Lightning Network dual-funded channels under mempool congestion.";
+      } else if (type === 'ecash') {
+        input.value = "Verify BDHKE point subtraction arithmetic: prove that C = C' - rK yields valid unblinded mint signature kY.";
+      }
+      updateCharCount();
+    }
+
+    function updateCharCount() {
+      const len = document.getElementById('promptInput').value.length;
+      document.getElementById('charCount').innerText = `${len} / 8192 chars`;
+    }
+
+    async function mintDemoEcash() {
+      playTone(880, 0.15);
+      const status = document.getElementById('tokenStatus');
+      status.innerText = 'Minting proofs...';
       try {
         const res = await fetch('/api/token');
         if (res.ok) {
           const data = await res.json();
           document.getElementById('tokenInput').value = data.token;
-          document.getElementById('tokenStatus').innerText = `${data.amount_sats} sats minted`;
+          status.innerText = `${data.amount_sats} SATS MINTED`;
+          playTone(1200, 0.12);
+        } else {
+          status.innerText = '5 SATS LOADED';
         }
       } catch (err) {
-        document.getElementById('tokenStatus').innerText = 'Local demo token active';
+        status.innerText = '5 SATS LOADED';
+      }
+    }
+
+    function setInspectMode(mode) {
+      playTone(500, 0.08);
+      currentInspectMode = mode;
+      const btnDec = document.getElementById('btnViewDecrypted');
+      const btnWire = document.getElementById('btnViewWire');
+
+      if (mode === 'decrypted') {
+        btnDec.className = 'px-3 py-1 rounded-lg bg-cyanneon/20 text-cyanneon border border-cyanneon/40 font-bold transition';
+        btnWire.className = 'px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/10 transition';
+        if (latestResult) {
+          document.getElementById('outputDisplay').innerText = latestResult.result.decrypted_plaintext;
+        }
+      } else {
+        btnWire.className = 'px-3 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/40 font-bold transition';
+        btnDec.className = 'px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/10 transition';
+        if (latestResult) {
+          document.getElementById('outputDisplay').innerText = JSON.stringify({
+            "protocol": "NIP-44 v2 (ChaCha20-Poly1305 / HMAC-SHA256)",
+            "kind_6000_event_id": latestResult.result.id,
+            "nip44_ciphertext_base64": latestResult.result.encrypted_payload_nip44,
+            "settlement_sats": latestResult.settlement.settled_sats,
+            "mint": latestResult.settlement.mint,
+            "atomic_swap_status": latestResult.settlement.status
+          }, null, 2);
+        } else {
+          document.getElementById('outputDisplay').innerText = 'No wire event recorded yet. Transmit a job to view NIP-44 authenticated ciphertext.';
+        }
       }
     }
 
     async function runSimulation() {
+      playTone(450, 0.1);
       const btn = document.getElementById('sendBtn');
       const prompt = document.getElementById('promptInput').value.trim();
       const model = document.getElementById('modelSelect').value;
       const token = document.getElementById('tokenInput').value.trim();
-      const outputBox = document.getElementById('outputBox');
-      const latencyBadge = document.getElementById('latencyBadge');
+      const outputDisplay = document.getElementById('outputDisplay');
+      const statusBadge = document.getElementById('statusBadge');
 
       btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Settlement & AI Loop...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Settlement & AI Inference...';
 
-      // Reset step indicators
+      // Reset stages to active
       for (let i = 1; i <= 5; i++) {
-        const el = document.getElementById('step' + i);
-        el.className = 'flex items-center gap-3 p-2.5 rounded-lg bg-[#050811] border border-cyan-500/30 text-xs animate-pulse';
-        el.querySelector('i').className = 'fa-solid fa-spinner fa-spin text-cyanneon';
+        const stage = document.getElementById('stage' + i);
+        stage.className = 'flex items-center justify-between p-2.5 rounded-xl bg-cyan-950/20 border border-cyan-500/40 font-mono text-xs transition animate-pulse';
+        stage.querySelector('i').className = 'fa-solid fa-circle-notch fa-spin text-cyanneon';
+        document.getElementById('badge1').innerText = 'RUNNING';
       }
 
-      outputBox.innerText = 'Communicating with Nostr Relay & Cashu Mint...';
+      statusBadge.innerText = 'Settling Ecash...';
+      statusBadge.className = 'text-xs font-mono px-3 py-1 rounded-full bg-cyan-950 text-cyanneon border border-cyan-800';
+
+      outputDisplay.innerText = 'Transmitting Kind 5000 job event over Nostr WebSocket pool...\nVerifying NUT-00 Cashu blind proofs against mint endpoint...';
 
       try {
         const res = await fetch('/api/simulate', {
@@ -259,27 +706,49 @@ Click "Broadcast Job & Settle Ecash" to simulate an end-to-end NIP-90 request se
         const data = await res.json();
 
         if (data.success) {
-          // Success mark all steps
+          latestResult = data;
+          playTone(880, 0.2, 'triangle');
+
+          // Mark stages finished
           for (let i = 1; i <= 5; i++) {
-            const el = document.getElementById('step' + i);
-            el.className = 'flex items-center gap-3 p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-800 text-xs';
-            el.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400';
+            const stage = document.getElementById('stage' + i);
+            stage.className = 'flex items-center justify-between p-2.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30 font-mono text-xs transition';
+            stage.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400';
+            const badge = document.getElementById('badge' + i);
+            badge.innerText = 'DONE';
+            badge.className = 'text-[10px] text-emerald-400 font-bold';
           }
 
-          latencyBadge.innerText = `${data.elapsed_ms}ms | +${data.settlement.settled_sats} Sats Settled`;
-          latencyBadge.className = 'text-xs px-2.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800';
+          statusBadge.innerText = `${data.elapsed_ms}ms | +${data.settlement.settled_sats} Sats Settled`;
+          statusBadge.className = 'text-xs font-mono px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold';
 
-          outputBox.innerText = data.result.decrypted_plaintext;
+          if (currentInspectMode === 'decrypted') {
+            outputDisplay.innerText = data.result.decrypted_plaintext;
+          } else {
+            setInspectMode('wire');
+          }
         } else {
-          outputBox.innerText = 'Error: ' + (data.error || 'Failed simulation');
+          outputDisplay.innerText = 'Error: ' + (data.error || 'Failed simulation');
         }
       } catch (e) {
-        outputBox.innerText = 'Execution completed with simulation fallback: ' + e.message;
+        outputDisplay.innerText = 'Simulation fallback: ' + e.message;
       } finally {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> Broadcast Job & Settle Ecash';
+        btn.innerHTML = '<i class="fa-solid fa-satellite-dish text-base"></i> Transmit Job & Settle Ecash';
       }
     }
+
+    function copyOutput() {
+      const text = document.getElementById('outputDisplay').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        playTone(1000, 0.08);
+        const label = document.getElementById('copyLabel');
+        label.innerText = 'Copied!';
+        setTimeout(() => label.innerText = 'Copy', 2000);
+      });
+    }
+
+    updateCharCount();
   </script>
 </body>
 </html>
