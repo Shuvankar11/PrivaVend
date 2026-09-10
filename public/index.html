@@ -741,9 +741,12 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         desc: 'ZERO-TRACE AUTONOMOUS AI DATA VENDING MACHINE',
         btnText: 'ENTER TERMINAL',
         targetTab: 'terminal',
-        tagColor: '#38bdf8',
-        rimHex: 0x94a3b8,
-        tracking: 'tracking-[0.18em] sm:tracking-[0.26em]'
+        tagColor: '#00f2fe',
+        lightCyanHex: 0x00f2fe,
+        lightAmberHex: 0xf7931a,
+        lightCyanIntensity: 1.9,
+        lightAmberIntensity: 1.3,
+        tracking: 'tracking-[0.18em] sm:tracking-[0.24em]'
       },
       {
         tag: 'BITSHALA BOSS BATTLE • MACHINE MONEY TRACK',
@@ -751,8 +754,11 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         desc: '100% OFF-CHAIN CHAUMIAN ECASH MICROPAYMENTS (NUT-00 TO NUT-07)',
         btnText: 'VIEW ECASH ENGINE',
         targetTab: 'bdhke',
-        tagColor: '#fbbf24',
-        rimHex: 0xd97706,
+        tagColor: '#f7931a',
+        lightCyanHex: 0xf7931a,
+        lightAmberHex: 0xffaa00,
+        lightCyanIntensity: 2.6,
+        lightAmberIntensity: 1.8,
         tracking: 'tracking-[0.12em] sm:tracking-[0.18em]'
       },
       {
@@ -761,8 +767,11 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         desc: 'UNSTOPPABLE NOSTR NIP-90 RELAY MESH ARCHITECTURE',
         btnText: 'EXPLORE RELAY MESH',
         targetTab: 'network',
-        tagColor: '#34d399',
-        rimHex: 0x059669,
+        tagColor: '#10b981',
+        lightCyanHex: 0x10b981,
+        lightAmberHex: 0x00f2fe,
+        lightCyanIntensity: 2.4,
+        lightAmberIntensity: 1.2,
         tracking: 'tracking-[0.12em] sm:tracking-[0.18em]'
       },
       {
@@ -771,8 +780,11 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         desc: 'END-TO-END AUTHENTICATED CHACHA20 ENCRYPTION (NIP-44 V2)',
         btnText: 'INSPECT PROTOCOL SPECS',
         targetTab: 'specs',
-        tagColor: '#c084fc',
-        rimHex: 0x9333ea,
+        tagColor: '#a855f7',
+        lightCyanHex: 0xa855f7,
+        lightAmberHex: 0x00f2fe,
+        lightCyanIntensity: 2.5,
+        lightAmberIntensity: 1.5,
         tracking: 'tracking-[0.16em] sm:tracking-[0.22em]'
       }
     ];
@@ -783,9 +795,13 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     const AUTOPLAY_DELAY = 4500; // 4.5 seconds
 
     // 3D Lighting & Physics Targets
-    let targetRimColor = new THREE.Color(0x94a3b8);
+    let targetLight1Color = new THREE.Color(0x00f2fe);
+    let targetLight2Color = new THREE.Color(0xf7931a);
+    let targetLight1Intensity = 1.9;
+    let targetLight2Intensity = 1.3;
     let rotationBurst = 0;
     let targetBurst = 0;
+    let waveSurge = 0;
 
     function renderSlide(index, direction = 1) {
       if (isTransitioning) return;
@@ -795,9 +811,11 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
 
       // Trigger 3D physics swirl & lighting mood shift
       targetBurst += direction * 1.5;
-      if (typeof THREE !== 'undefined' && targetRimColor) {
-        targetRimColor.setHex(data.rimHex);
-      }
+      waveSurge = 1.0;
+      targetLight1Color.setHex(data.lightCyanHex);
+      targetLight2Color.setHex(data.lightAmberHex);
+      targetLight1Intensity = data.lightCyanIntensity;
+      targetLight2Intensity = data.lightAmberIntensity;
 
       // Animate slide text out
       const wrapper = document.getElementById('slide-content-wrapper');
@@ -893,13 +911,11 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     });
 
     // -------------------------------------------------------------
-    // THREE.JS 3D ORGANIC SILK SCULPTURE (Oleg Frolov Style)
+    // THREE.JS 3D MORPHING LIQUID SCULPTURE (Oleg Frolov Style)
     // -------------------------------------------------------------
-    let scene, camera, renderer, morphMesh;
-    let keyLight, fillLight, rimLight, ambientLight;
+    let scene, camera, renderer, sphere, origPositions, posAttribute;
+    let lightCyan, lightAmber, lightFront;
     let particles;
-    let basePositions = null;
-    let vertexCount = 0;
 
     function init3DHero() {
       const canvas = document.getElementById('hero-canvas');
@@ -916,64 +932,60 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // High-subdivision Sphere for Organic Cloth/Liquid Morphing Folds
-      const detail = 84;
-      const sphereGeometry = new THREE.SphereGeometry(1.65, detail, detail);
-      const posAttr = sphereGeometry.attributes.position;
-      vertexCount = posAttr.count;
-      basePositions = new Float32Array(posAttr.array); // Cache initial sphere geometry
+      // Geometry: Icosahedron with detail for smooth organic deformation
+      const geometry = new THREE.IcosahedronGeometry(1.65, 52);
+      posAttribute = geometry.attributes.position;
+      origPositions = new Float32Array(posAttribute.array);
 
-      // Luxury Matte Slate/Graphite Silk Material (Oleg Frolov Minimalist Velvet Finish)
-      const sculptureMaterial = new THREE.MeshStandardMaterial({
-        color: 0x272c36,
-        roughness: 0.78,
-        metalness: 0.18,
-        flatShading: false
+      // Material: Dark metallic organic surface (as shown in screenshot FD82F59B)
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x181a20,
+        roughness: 0.28,
+        metalness: 0.88
       });
 
-      morphMesh = new THREE.Mesh(sphereGeometry, sculptureMaterial);
-      scene.add(morphMesh);
+      sphere = new THREE.Mesh(geometry, material);
+      scene.add(sphere);
 
-      // Studio Chiaroscuro Lighting Setup
-      ambientLight = new THREE.AmbientLight(0x141720, 0.95);
+      // Ambient & Directional Rim Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
       scene.add(ambientLight);
 
-      // Studio Key Light (Top-left, illuminates the sculpted silk ridges)
-      keyLight = new THREE.DirectionalLight(0xf8fafc, 2.2);
-      keyLight.position.set(4, 5, 4);
-      scene.add(keyLight);
+      // Dynamic Rim Light 1 (Cyan/Primary)
+      lightCyan = new THREE.DirectionalLight(0x00f2fe, 1.9);
+      lightCyan.position.set(5, 3, 4);
+      scene.add(lightCyan);
 
-      // Soft Fill Light (Bottom-right, provides smooth shadowy depth)
-      fillLight = new THREE.DirectionalLight(0x334155, 0.85);
-      fillLight.position.set(-4, -3, -2);
-      scene.add(fillLight);
+      // Dynamic Rim Light 2 (Amber/Secondary)
+      lightAmber = new THREE.DirectionalLight(0xf7931a, 1.3);
+      lightAmber.position.set(-5, -3, -2);
+      scene.add(lightAmber);
 
-      // Subtle Rim Light (Back-top silhouette edge)
-      rimLight = new THREE.DirectionalLight(0x94a3b8, 1.4);
-      rimLight.position.set(-2, 4, -4);
-      scene.add(rimLight);
+      // Soft white key light front
+      lightFront = new THREE.PointLight(0xffffff, 1.0, 25);
+      lightFront.position.set(0, 2, 5);
+      scene.add(lightFront);
 
-      // Cosmic Dust Micro-Particles (Floating in zero gravity)
-      const particleCount = 380;
+      // Cosmic Dust Particles (Oleg Frolov Style)
+      const particleCount = 420;
       const pGeom = new THREE.BufferGeometry();
       const pPositions = new Float32Array(particleCount * 3);
       for (let i = 0; i < particleCount * 3; i += 3) {
-        pPositions[i] = (Math.random() - 0.5) * 18;
-        pPositions[i + 1] = (Math.random() - 0.5) * 14;
+        pPositions[i] = (Math.random() - 0.5) * 16;
+        pPositions[i + 1] = (Math.random() - 0.5) * 12;
         pPositions[i + 2] = (Math.random() - 0.5) * 14;
       }
       pGeom.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
       const pMaterial = new THREE.PointsMaterial({
         color: 0xffffff,
-        size: 0.038,
+        size: 0.035,
         transparent: true,
-        opacity: 0.55,
-        blending: THREE.AdditiveBlending
+        opacity: 0.6
       });
       particles = new THREE.Points(pGeom, pMaterial);
       scene.add(particles);
 
-      // Window Resize Listener
+      // Window resize
       window.addEventListener('resize', () => {
         if (!camera || !renderer) return;
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -981,64 +993,42 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
 
-      // Animation Loop with Multi-harmonic Silk/Liquid Displacement (Pure Ambient Motion)
+      // Animation Loop
       const clock = new THREE.Clock();
       function animate() {
         requestAnimationFrame(animate);
-        const time = clock.getElapsedTime();
-        const t = time * 0.72;
+        const time = clock.getElapsedTime() * 0.75;
 
         // Smoothly interpolate rotation burst from slide transitions
-        rotationBurst += (targetBurst - rotationBurst) * 0.05;
+        rotationBurst += (targetBurst - rotationBurst) * 0.06;
 
-        // Smoothly shift rim light accent color based on active slide
-        if (rimLight && targetRimColor) {
-          rimLight.color.lerp(targetRimColor, 0.05);
+        // Smoothly decay wave surge back to 0
+        waveSurge += (0 - waveSurge) * 0.05;
+        const currentWaveAmp = 0.26 + waveSurge * 0.25;
+
+        // Smoothly interpolate dynamic light colors and intensities
+        lightCyan.color.lerp(targetLight1Color, 0.05);
+        lightAmber.color.lerp(targetLight2Color, 0.05);
+        lightCyan.intensity += (targetLight1Intensity - lightCyan.intensity) * 0.05;
+        lightAmber.intensity += (targetLight2Intensity - lightAmber.intensity) * 0.05;
+
+        // Deform vertices with smooth harmonic wave + wave surge
+        const positions = posAttribute.array;
+        for (let i = 0; i < positions.length; i += 3) {
+          const u = origPositions[i];
+          const v = origPositions[i + 1];
+          const w = origPositions[i + 2];
+          const wave = Math.sin(u * 2.2 + time) * Math.cos(v * 2.2 + time * 0.9) * Math.sin(w * 2.2 + time * 1.1) * currentWaveAmp;
+          positions[i] = u * (1 + wave);
+          positions[i + 1] = v * (1 + wave);
+          positions[i + 2] = w * (1 + wave);
         }
+        posAttribute.needsUpdate = true;
+        geometry.computeVertexNormals();
 
-        // Organic Cloth/Liquid Morphing Calculation
-        const positions = morphMesh.geometry.attributes.position.array;
-        for (let i = 0; i < vertexCount; i++) {
-          const i3 = i * 3;
-          const ox = basePositions[i3];
-          const oy = basePositions[i3 + 1];
-          const oz = basePositions[i3 + 2];
-
-          // Unit vector on sphere
-          const len = Math.sqrt(ox * ox + oy * oy + oz * oz);
-          const nx = ox / len;
-          const ny = oy / len;
-          const nz = oz / len;
-
-          // Diagonal drapery flow coordinate (creates elegant silk folds as in Oleg Frolov reference)
-          const diagonal = nx * 1.8 + ny * 2.2 + nz * 1.6;
-          const transverse = -nx * 1.6 + ny * 1.8 - nz * 1.2;
-
-          // Harmonic wave octaves
-          const fold1 = Math.sin(diagonal * 3.6 - t * 0.9) * Math.cos(transverse * 2.4 + t * 0.6);
-          const fold2 = Math.sin(nx * 4.2 + t * 0.8) * Math.cos(ny * 3.8 - t * 0.7) * Math.sin(nz * 3.5 + t * 0.5);
-          const swirl = Math.sin(ny * 4.8 + nx * 2.6 + t * 1.2) * 0.35;
-
-          // Combined smooth displacement
-          const displacement = fold1 * 0.22 + fold2 * 0.14 + swirl * 0.06;
-          const scale = 1.0 + displacement;
-
-          positions[i3] = ox * scale;
-          positions[i3 + 1] = oy * scale;
-          positions[i3 + 2] = oz * scale;
-        }
-
-        morphMesh.geometry.attributes.position.needsUpdate = true;
-        morphMesh.geometry.computeVertexNormals();
-
-        // Smooth non-cursor-reactive ambient cinematic rotation
-        morphMesh.rotation.y = time * 0.10 + rotationBurst * 0.4;
-        morphMesh.rotation.x = Math.sin(time * 0.08) * 0.12;
-        morphMesh.rotation.z = Math.cos(time * 0.06) * 0.06;
-
-        // Subtle drifting particles
-        particles.rotation.y = time * 0.015 + rotationBurst * 0.1;
-        particles.rotation.x = time * 0.008;
+        sphere.rotation.y = time * 0.2 + rotationBurst;
+        sphere.rotation.x = Math.sin(time * 0.15) * 0.15;
+        particles.rotation.y = time * 0.03 + rotationBurst * 0.2;
 
         renderer.render(scene, camera);
       }
