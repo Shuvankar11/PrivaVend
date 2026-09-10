@@ -122,6 +122,37 @@
       pointer-events: none;
     }
 
+    /* Cinematic Slide Animations */
+    .slide-in-forward {
+      animation: slideInFwd 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .slide-out-forward {
+      animation: slideOutFwd 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .slide-in-backward {
+      animation: slideInBwd 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .slide-out-backward {
+      animation: slideOutBwd 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideInFwd {
+      0% { opacity: 0; transform: translateX(65px) scale(1.04); filter: blur(8px); }
+      100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
+    }
+    @keyframes slideOutFwd {
+      0% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
+      100% { opacity: 0; transform: translateX(-65px) scale(0.96); filter: blur(8px); }
+    }
+    @keyframes slideInBwd {
+      0% { opacity: 0; transform: translateX(-65px) scale(1.04); filter: blur(8px); }
+      100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
+    }
+    @keyframes slideOutBwd {
+      0% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
+      100% { opacity: 0; transform: translateX(65px) scale(0.96); filter: blur(8px); }
+    }
+
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
@@ -141,7 +172,7 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black">
 
-  <!-- 3D HERO SECTION (Oleg Frolov Style) -->
+  <!-- 3D HERO SECTION (Oleg Frolov Style with Auto-Play & 3D Swirl) -->
   <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none">
     
     <!-- Three.js 3D Morphing Sculpture Canvas -->
@@ -185,43 +216,43 @@
     <div class="relative z-20 w-full max-w-7xl mx-auto px-4 md:px-12 flex items-center justify-between flex-grow pointer-events-none">
       
       <!-- Left Carousel Arrow (Oleg Frolov Style) -->
-      <button onclick="prevSlide()" class="slider-arrow pointer-events-auto" title="Previous Architecture Track">
+      <button onclick="prevSlide()" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="slider-arrow pointer-events-auto" title="Previous Architecture Track">
         <i class="fa-solid fa-chevron-left text-xs"></i>
       </button>
 
       <!-- Center Dynamic Slide Typography -->
-      <div id="slide-container" class="text-center px-4 py-8 pointer-events-auto transition-all duration-500 max-w-3xl">
-        
-        <!-- Slide Badge / Sub-tag -->
-        <div id="slide-tag" class="text-[10px] md:text-xs font-mono uppercase tracking-[0.35em] text-cyanneon mb-3 font-semibold">
-          BITSHALA BOSS BATTLE • CYPHERPUNK AI
+      <div id="slide-container" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="text-center px-4 py-8 pointer-events-auto max-w-3xl">
+        <div id="slide-content-wrapper">
+          <!-- Slide Badge / Sub-tag -->
+          <div id="slide-tag" class="text-[10px] md:text-xs font-mono uppercase tracking-[0.35em] text-cyanneon mb-3 font-semibold transition-colors duration-500">
+            BITSHALA BOSS BATTLE • CYPHERPUNK AI
+          </div>
+
+          <!-- Grand Title with Wide Oleg Frolov Letter Spacing -->
+          <h1 id="slide-title" class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight uppercase tracking-[0.3em] md:tracking-[0.45em] text-white drop-shadow-2xl">
+            PRIVAVEND
+          </h1>
+
+          <!-- Delicate Horizontal Divider -->
+          <div class="w-24 md:w-36 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto my-5 md:my-6"></div>
+
+          <!-- Subtitle with Wide Spacing -->
+          <p id="slide-desc" class="text-[11px] md:text-xs font-mono uppercase tracking-[0.25em] md:tracking-[0.35em] text-gray-400 max-w-xl mx-auto leading-relaxed">
+            ZERO-TRACE AUTONOMOUS AI DATA VENDING MACHINE
+          </p>
+
+          <!-- Minimalist Pill Action Button -->
+          <div class="mt-8">
+            <a id="slide-btn" href="#workspace" onclick="handleSlideAction()" class="pill-btn">
+              <span>ENTER TERMINAL</span>
+              <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
         </div>
-
-        <!-- Grand Title with Wide Oleg Frolov Letter Spacing -->
-        <h1 id="slide-title" class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight uppercase tracking-[0.3em] md:tracking-[0.45em] text-white drop-shadow-2xl transition-all duration-500">
-          PRIVAVEND
-        </h1>
-
-        <!-- Delicate Horizontal Divider -->
-        <div class="w-24 md:w-36 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto my-5 md:my-6"></div>
-
-        <!-- Subtitle with Wide Spacing -->
-        <p id="slide-desc" class="text-[11px] md:text-xs font-mono uppercase tracking-[0.25em] md:tracking-[0.35em] text-gray-400 max-w-xl mx-auto leading-relaxed transition-all duration-500">
-          ZERO-TRACE AUTONOMOUS AI DATA VENDING MACHINE
-        </p>
-
-        <!-- Minimalist Pill Action Button -->
-        <div class="mt-8">
-          <a id="slide-btn" href="#workspace" onclick="handleSlideAction()" class="pill-btn">
-            <span>ENTER TERMINAL</span>
-            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-          </a>
-        </div>
-
       </div>
 
       <!-- Right Carousel Arrow -->
-      <button onclick="nextSlide()" class="slider-arrow pointer-events-auto" title="Next Architecture Track">
+      <button onclick="nextSlide()" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="slider-arrow pointer-events-auto" title="Next Architecture Track">
         <i class="fa-solid fa-chevron-right text-xs"></i>
       </button>
 
@@ -231,11 +262,11 @@
     <div class="relative z-20 w-full px-6 md:px-12 pb-8 flex flex-col items-center justify-center gap-4">
       
       <!-- 4 Paginator Dots -->
-      <div class="flex items-center justify-center space-x-3">
-        <button onclick="goToSlide(0)" id="dot-0" class="h-1.5 w-6 rounded-full bg-white transition-all duration-300" title="Slide 1: PrivaVend DVM"></button>
-        <button onclick="goToSlide(1)" id="dot-1" class="h-1.5 w-1.5 rounded-full bg-white/30 hover:bg-white/70 transition-all duration-300" title="Slide 2: Machine Money"></button>
-        <button onclick="goToSlide(2)" id="dot-2" class="h-1.5 w-1.5 rounded-full bg-white/30 hover:bg-white/70 transition-all duration-300" title="Slide 3: Freedom Stack"></button>
-        <button onclick="goToSlide(3)" id="dot-3" class="h-1.5 w-1.5 rounded-full bg-white/30 hover:bg-white/70 transition-all duration-300" title="Slide 4: Cypherpunk Privacy"></button>
+      <div class="flex items-center justify-center space-x-3" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()">
+        <button onclick="goToSlide(0)" id="dot-0" class="h-1.5 w-7 rounded-full bg-white shadow-md shadow-white/40 transition-all duration-300" title="Slide 1: PrivaVend DVM"></button>
+        <button onclick="goToSlide(1)" id="dot-1" class="h-1.5 w-1.5 rounded-full bg-white/25 hover:bg-white/70 transition-all duration-300" title="Slide 2: Machine Money"></button>
+        <button onclick="goToSlide(2)" id="dot-2" class="h-1.5 w-1.5 rounded-full bg-white/25 hover:bg-white/70 transition-all duration-300" title="Slide 3: Freedom Stack"></button>
+        <button onclick="goToSlide(3)" id="dot-3" class="h-1.5 w-1.5 rounded-full bg-white/25 hover:bg-white/70 transition-all duration-300" title="Slide 4: Cypherpunk Privacy"></button>
       </div>
 
       <!-- Scroll to Workspace Prompt -->
@@ -250,7 +281,7 @@
 
   <!-- WORKSPACE & INTERACTIVE WORKSTATION SECTION -->
   <div id="workspace" class="w-full bg-[#050608] min-h-screen py-10 px-4 md:px-8 border-t border-white/5">
-    
+
     <!-- Interactive Navigation Tabs -->
     <div class="max-w-7xl mx-auto mb-8 flex items-center justify-between border-b border-white/10 pb-1">
       <div class="flex items-center space-x-2 overflow-x-auto text-xs font-mono uppercase tracking-wider">
@@ -638,7 +669,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
   <!-- SCRIPT LOGIC & THREE.JS 3D SCULPTURE -->
   <script>
     // -------------------------------------------------------------
-    // SLIDES DATA (Oleg Frolov Style Carousel)
+    // SLIDES DATA (Oleg Frolov Style Carousel with 3D Dynamics)
     // -------------------------------------------------------------
     const slides = [
       {
@@ -646,84 +677,155 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         title: 'PRIVAVEND',
         desc: 'ZERO-TRACE AUTONOMOUS AI DATA VENDING MACHINE',
         btnText: 'ENTER TERMINAL',
-        targetTab: 'terminal'
+        targetTab: 'terminal',
+        tagColor: '#00f2fe',
+        lightCyanHex: 0x00f2fe,
+        lightAmberHex: 0xf7931a,
+        lightCyanIntensity: 1.9,
+        lightAmberIntensity: 1.3
       },
       {
         tag: 'BITSHALA BOSS BATTLE • MACHINE MONEY TRACK',
         title: 'MACHINE MONEY',
         desc: '100% OFF-CHAIN CHAUMIAN ECASH MICROPAYMENTS (NUT-00 TO NUT-07)',
         btnText: 'VIEW ECASH ENGINE',
-        targetTab: 'bdhke'
+        targetTab: 'bdhke',
+        tagColor: '#f7931a',
+        lightCyanHex: 0xf7931a,
+        lightAmberHex: 0xffaa00,
+        lightCyanIntensity: 2.6,
+        lightAmberIntensity: 1.8
       },
       {
         tag: 'BITSHALA BOSS BATTLE • FREEDOM STACK TRACK',
         title: 'FREEDOM STACK',
         desc: 'UNSTOPPABLE NOSTR NIP-90 RELAY MESH ARCHITECTURE',
         btnText: 'EXPLORE RELAY MESH',
-        targetTab: 'network'
+        targetTab: 'network',
+        tagColor: '#10b981',
+        lightCyanHex: 0x10b981,
+        lightAmberHex: 0x00f2fe,
+        lightCyanIntensity: 2.4,
+        lightAmberIntensity: 1.2
       },
       {
         tag: 'BITSHALA BOSS BATTLE • ZERO-KYC GUARANTEES',
         title: 'CYPHERPUNK',
         desc: 'END-TO-END AUTHENTICATED CHACHA20 ENCRYPTION (NIP-44 V2)',
         btnText: 'INSPECT PROTOCOL SPECS',
-        targetTab: 'specs'
+        targetTab: 'specs',
+        tagColor: '#a855f7',
+        lightCyanHex: 0xa855f7,
+        lightAmberHex: 0x00f2fe,
+        lightCyanIntensity: 2.5,
+        lightAmberIntensity: 1.5
       }
     ];
 
     let currentSlide = 0;
+    let isTransitioning = false;
+    let autoplayTimer = null;
+    const AUTOPLAY_DELAY = 4500; // 4.5 seconds
 
-    function renderSlide(index) {
+    // 3D Lighting & Physics Targets
+    let targetLight1Color = new THREE.Color(0x00f2fe);
+    let targetLight2Color = new THREE.Color(0xf7931a);
+    let targetLight1Intensity = 1.9;
+    let targetLight2Intensity = 1.3;
+    let rotationBurst = 0;
+    let targetBurst = 0;
+    let waveSurge = 0;
+
+    function renderSlide(index, direction = 1) {
+      if (isTransitioning) return;
+      isTransitioning = true;
       currentSlide = index;
       const data = slides[index];
 
-      const tagEl = document.getElementById('slide-tag');
-      const titleEl = document.getElementById('slide-title');
-      const descEl = document.getElementById('slide-desc');
-      const btnEl = document.getElementById('slide-btn');
+      // Trigger 3D physics swirl & lighting mood shift
+      targetBurst += direction * 1.5;
+      waveSurge = 0.6; // surge wave deformation like liquid mercury
+      targetLight1Color.setHex(data.lightCyanHex);
+      targetLight2Color.setHex(data.lightAmberHex);
+      targetLight1Intensity = data.lightCyanIntensity;
+      targetLight2Intensity = data.lightAmberIntensity;
 
-      // Subtle fade effect
-      tagEl.style.opacity = '0';
-      titleEl.style.opacity = '0';
-      descEl.style.opacity = '0';
+      // Animate slide text out
+      const wrapper = document.getElementById('slide-content-wrapper');
+      const outClass = direction > 0 ? 'slide-out-forward' : 'slide-out-backward';
+      const inClass = direction > 0 ? 'slide-in-forward' : 'slide-in-backward';
+
+      wrapper.className = outClass;
 
       setTimeout(() => {
-        tagEl.innerText = data.tag;
-        titleEl.innerText = data.title;
-        descEl.innerText = data.desc;
-        btnEl.querySelector('span').innerText = data.btnText;
+        document.getElementById('slide-tag').innerText = data.tag;
+        document.getElementById('slide-tag').style.color = data.tagColor;
+        document.getElementById('slide-title').innerText = data.title;
+        document.getElementById('slide-desc').innerText = data.desc;
+        document.getElementById('slide-btn').querySelector('span').innerText = data.btnText;
 
-        tagEl.style.opacity = '1';
-        titleEl.style.opacity = '1';
-        descEl.style.opacity = '1';
-      }, 150);
+        wrapper.className = inClass;
 
-      // Update paginator dots
-      for (let i = 0; i < slides.length; i++) {
-        const dot = document.getElementById('dot-' + i);
-        if (i === index) {
-          dot.className = 'h-1.5 w-6 rounded-full bg-white transition-all duration-300';
-        } else {
-          dot.className = 'h-1.5 w-1.5 rounded-full bg-white/30 hover:bg-white/70 transition-all duration-300';
+        // Update paginator dots
+        for (let i = 0; i < slides.length; i++) {
+          const dot = document.getElementById('dot-' + i);
+          if (i === index) {
+            dot.className = 'h-1.5 w-7 rounded-full bg-white shadow-md shadow-white/40 transition-all duration-300';
+          } else {
+            dot.className = 'h-1.5 w-1.5 rounded-full bg-white/25 hover:bg-white/70 transition-all duration-300';
+          }
         }
-      }
+
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 350);
+      }, 250);
     }
 
-    function nextSlide() {
-      playTone(520, 0.06);
-      currentSlide = (currentSlide + 1) % slides.length;
-      renderSlide(currentSlide);
+    function nextSlide(auto = false) {
+      if (!auto) playTone(520, 0.06);
+      const nextIdx = (currentSlide + 1) % slides.length;
+      renderSlide(nextIdx, 1);
+      resetAutoplay();
     }
 
     function prevSlide() {
       playTone(460, 0.06);
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      renderSlide(currentSlide);
+      const prevIdx = (currentSlide - 1 + slides.length) % slides.length;
+      renderSlide(prevIdx, -1);
+      resetAutoplay();
     }
 
     function goToSlide(index) {
+      if (index === currentSlide) return;
       playTone(500, 0.06);
-      renderSlide(index);
+      const dir = index > currentSlide ? 1 : -1;
+      renderSlide(index, dir);
+      resetAutoplay();
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        nextSlide(true);
+      }, AUTOPLAY_DELAY);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+
+    function resetAutoplay() {
+      startAutoplay();
+    }
+
+    function pauseAutoplay() {
+      stopAutoplay();
+    }
+
+    function resumeAutoplay() {
+      startAutoplay();
     }
 
     function handleSlideAction() {
@@ -741,6 +843,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     // THREE.JS 3D ORGANIC MORPHING METALLIC SCULPTURE
     // -------------------------------------------------------------
     let scene, camera, renderer, sphere, origPositions, posAttribute;
+    let lightCyan, lightAmber, lightFront;
     let particles;
     let mouseX = 0, mouseY = 0;
     let targetX = 0, targetY = 0;
@@ -779,18 +882,18 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
       scene.add(ambientLight);
 
-      // Cyan light on top right
-      const lightCyan = new THREE.DirectionalLight(0x00f2fe, 1.8);
+      // Dynamic Rim Light 1 (Cyan/Primary)
+      lightCyan = new THREE.DirectionalLight(0x00f2fe, 1.9);
       lightCyan.position.set(5, 3, 4);
       scene.add(lightCyan);
 
-      // Amber/Gold light on bottom left
-      const lightAmber = new THREE.DirectionalLight(0xf7931a, 1.3);
+      // Dynamic Rim Light 2 (Amber/Secondary)
+      lightAmber = new THREE.DirectionalLight(0xf7931a, 1.3);
       lightAmber.position.set(-5, -3, -2);
       scene.add(lightAmber);
 
       // Soft white key light front
-      const lightFront = new THREE.PointLight(0xffffff, 1.0, 25);
+      lightFront = new THREE.PointLight(0xffffff, 1.0, 25);
       lightFront.position.set(0, 2, 5);
       scene.add(lightFront);
 
@@ -833,13 +936,26 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         requestAnimationFrame(animate);
         const time = clock.getElapsedTime() * 0.75;
 
-        // Deform vertices with smooth harmonic wave
+        // Smoothly interpolate rotation burst from slide transitions
+        rotationBurst += (targetBurst - rotationBurst) * 0.06;
+
+        // Smoothly decay wave surge back to 0
+        waveSurge += (0 - waveSurge) * 0.05;
+        const currentWaveAmp = 0.26 + waveSurge * 0.25;
+
+        // Smoothly interpolate dynamic light colors and intensities
+        lightCyan.color.lerp(targetLight1Color, 0.05);
+        lightAmber.color.lerp(targetLight2Color, 0.05);
+        lightCyan.intensity += (targetLight1Intensity - lightCyan.intensity) * 0.05;
+        lightAmber.intensity += (targetLight2Intensity - lightAmber.intensity) * 0.05;
+
+        // Deform vertices with smooth harmonic wave + wave surge
         const positions = posAttribute.array;
         for (let i = 0; i < positions.length; i += 3) {
           const u = origPositions[i];
           const v = origPositions[i + 1];
           const w = origPositions[i + 2];
-          const wave = Math.sin(u * 2.2 + time) * Math.cos(v * 2.2 + time * 0.9) * Math.sin(w * 2.2 + time * 1.1) * 0.28;
+          const wave = Math.sin(u * 2.2 + time) * Math.cos(v * 2.2 + time * 0.9) * Math.sin(w * 2.2 + time * 1.1) * currentWaveAmp;
           positions[i] = u * (1 + wave);
           positions[i + 1] = v * (1 + wave);
           positions[i + 2] = w * (1 + wave);
@@ -851,9 +967,9 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         targetX += (mouseX - targetX) * 0.05;
         targetY += (mouseY - targetY) * 0.05;
 
-        sphere.rotation.y = time * 0.2 + targetX;
+        sphere.rotation.y = time * 0.2 + targetX + rotationBurst;
         sphere.rotation.x = Math.sin(time * 0.15) * 0.15 + targetY;
-        particles.rotation.y = time * 0.03;
+        particles.rotation.y = time * 0.03 + rotationBurst * 0.2;
 
         renderer.render(scene, camera);
       }
@@ -1064,6 +1180,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
       init3DHero();
       updateCharCount();
       renderSlide(0);
+      startAutoplay();
     });
   </script>
 </body>
