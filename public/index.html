@@ -235,13 +235,15 @@
   <!-- HERO SECTION (Noir Floral Aesthetic with Non-Cursor-Reactive Background) -->
   <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none bg-[#050608]">
     
-    <!-- Hero Photographic Floral Dark Background (Non-cursor-reactive) -->
+    <!-- Hero Photographic Floral Dark Background (Bright, Crisp & Non-cursor-reactive) -->
     <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      <img src="/hero_bg.jpg" alt="PrivaVend Dark Floral Atmosphere" class="ambient-bg-photo w-full h-full object-cover object-center filter brightness-[0.72] contrast-[1.08] select-none">
-      <!-- Deep cinematic dark vignettes for flawless typography legibility -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#050608] via-[#050608]/40 to-[#050608]/80"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-[#050608]/85 via-transparent to-[#050608]/65"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,#050608_92%)]"></div>
+      <img src="/hero_bg.jpg" alt="PrivaVend Dark Floral Atmosphere" class="ambient-bg-photo w-full h-full object-cover object-[60%_45%] filter brightness-[1.12] contrast-[1.15] select-none">
+      <!-- Soft top bar fade to maintain header navigation contrast -->
+      <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#050608]/85 via-[#050608]/30 to-transparent"></div>
+      <!-- Soft bottom transition to seamlessly enter workspace -->
+      <div class="absolute bottom-0 inset-x-0 h-36 bg-gradient-to-t from-[#050608] via-[#050608]/50 to-transparent"></div>
+      <!-- Subtle perimeter vignette leaving central flowers and reflection crystal clear -->
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(5,6,8,0.55)_100%)]"></div>
     </div>
 
     <!-- Top Minimal Navigation -->
@@ -290,20 +292,20 @@
       <div id="slide-container" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="text-center px-4 sm:px-8 py-6 pointer-events-auto max-w-md sm:max-w-xl md:max-w-2xl mx-auto flex-grow overflow-hidden">
         <div id="slide-content-wrapper">
           <!-- Slide Badge / Sub-tag -->
-          <div id="slide-tag" class="text-[10px] sm:text-xs font-mono uppercase tracking-[0.22em] sm:tracking-[0.3em] text-cyan-400 mb-3 font-semibold transition-colors duration-500">
+          <div id="slide-tag" class="text-[10px] sm:text-xs font-mono uppercase tracking-[0.22em] sm:tracking-[0.3em] text-cyan-400 mb-3 font-semibold transition-colors duration-500 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
             BITSHALA BOSS BATTLE • CYPHERPUNK AI
           </div>
 
-          <!-- Grand Title with Controlled Spacing so longer words like CYPHERPUNK fit comfortably -->
-          <h1 id="slide-title" class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium uppercase tracking-[0.2em] sm:tracking-[0.26em] text-white drop-shadow-2xl transition-all duration-300 select-none">
+          <!-- Grand Title with Controlled Spacing and Strong Shadow -->
+          <h1 id="slide-title" class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium uppercase tracking-[0.2em] sm:tracking-[0.26em] text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] transition-all duration-300 select-none">
             PRIVAVEND
           </h1>
 
           <!-- Delicate Horizontal Divider -->
-          <div class="w-16 sm:w-24 md:w-28 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto my-3 sm:my-4"></div>
+          <div class="w-16 sm:w-24 md:w-28 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto my-3 sm:my-4"></div>
 
           <!-- Subtitle with Controlled Width & Clean Wrap -->
-          <p id="slide-desc" class="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] sm:tracking-[0.22em] text-gray-400 max-w-md mx-auto leading-relaxed">
+          <p id="slide-desc" class="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] sm:tracking-[0.22em] text-gray-300 max-w-md mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
             ZERO-TRACE AUTONOMOUS AI DATA VENDING MACHINE
           </p>
 
@@ -804,7 +806,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         
         const titleEl = document.getElementById('slide-title');
         titleEl.innerText = data.title;
-        titleEl.className = `text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium uppercase ${data.tracking} text-white drop-shadow-2xl transition-all duration-300 select-none`;
+        titleEl.className = `text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium uppercase ${data.tracking} text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] transition-all duration-300 select-none`;
 
         document.getElementById('slide-desc').innerText = data.desc;
         document.getElementById('slide-btn').querySelector('span').innerText = data.btnText;
