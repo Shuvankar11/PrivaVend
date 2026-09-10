@@ -13,6 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
+  <!-- Three.js for 3D Cryptographic Quantum Core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -168,14 +170,15 @@
       transform: translateY(-2px);
     }
 
-    /* Ambient Floral Atmosphere (Non-cursor-reactive) */
-    @keyframes subtleBreathing {
-      0% { transform: scale(1.0); }
-      100% { transform: scale(1.04); }
-    }
-    .ambient-bg-photo {
-      animation: subtleBreathing 22s ease-in-out infinite alternate;
-      will-change: transform;
+    /* Hero Canvas Overlay */
+    #hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
     }
 
     /* Cinematic Slide Animations */
@@ -232,19 +235,11 @@
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
 
-  <!-- HERO SECTION (Noir Floral Aesthetic with Non-Cursor-Reactive Background) -->
-  <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none bg-[#050608]">
+  <!-- 3D HERO SECTION (Oleg Frolov Style with Matte Organic Morphing Sculpture) -->
+  <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none bg-[radial-gradient(circle_at_50%_46%,#161a24_0%,#0c0e14_50%,#050608_88%)]">
     
-    <!-- Hero Photographic Floral Dark Background (Bright, Crisp & Non-cursor-reactive) -->
-    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      <img src="/hero_bg.jpg" alt="PrivaVend Dark Floral Atmosphere" class="ambient-bg-photo w-full h-full object-cover object-[60%_45%] filter brightness-[1.12] contrast-[1.15] select-none">
-      <!-- Soft top bar fade to maintain header navigation contrast -->
-      <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#050608]/85 via-[#050608]/30 to-transparent"></div>
-      <!-- Soft bottom transition to seamlessly enter workspace -->
-      <div class="absolute bottom-0 inset-x-0 h-36 bg-gradient-to-t from-[#050608] via-[#050608]/50 to-transparent"></div>
-      <!-- Subtle perimeter vignette leaving central flowers and reflection crystal clear -->
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(5,6,8,0.55)_100%)]"></div>
-    </div>
+    <!-- Three.js 3D Morphing Sculpture Canvas -->
+    <canvas id="hero-canvas"></canvas>
 
     <!-- Top Minimal Navigation -->
     <header class="relative z-20 w-full px-6 md:px-12 pt-6 pb-4 flex items-center justify-between">
@@ -292,20 +287,20 @@
       <div id="slide-container" onmouseenter="pauseAutoplay()" onmouseleave="resumeAutoplay()" class="text-center px-4 sm:px-8 py-6 pointer-events-auto max-w-md sm:max-w-xl md:max-w-2xl mx-auto flex-grow overflow-hidden">
         <div id="slide-content-wrapper">
           <!-- Slide Badge / Sub-tag -->
-          <div id="slide-tag" class="text-[10px] sm:text-xs font-mono uppercase tracking-[0.22em] sm:tracking-[0.3em] text-cyan-400 mb-3 font-semibold transition-colors duration-500 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+          <div id="slide-tag" class="text-[10px] sm:text-xs font-mono uppercase tracking-[0.22em] sm:tracking-[0.3em] text-cyan-400 mb-3 font-semibold transition-colors duration-500">
             BITSHALA BOSS BATTLE • CYPHERPUNK AI
           </div>
 
-          <!-- Grand Title with Controlled Spacing and Strong Shadow -->
-          <h1 id="slide-title" class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium uppercase tracking-[0.2em] sm:tracking-[0.26em] text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] transition-all duration-300 select-none">
+          <!-- Grand Title with Controlled Spacing so longer words like CYPHERPUNK fit comfortably -->
+          <h1 id="slide-title" class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium uppercase tracking-[0.2em] sm:tracking-[0.26em] text-white drop-shadow-2xl transition-all duration-300 select-none">
             PRIVAVEND
           </h1>
 
           <!-- Delicate Horizontal Divider -->
-          <div class="w-16 sm:w-24 md:w-28 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto my-3 sm:my-4"></div>
+          <div class="w-16 sm:w-24 md:w-28 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto my-3 sm:my-4"></div>
 
           <!-- Subtitle with Controlled Width & Clean Wrap -->
-          <p id="slide-desc" class="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] sm:tracking-[0.22em] text-gray-300 max-w-md mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+          <p id="slide-desc" class="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] sm:tracking-[0.22em] text-gray-400 max-w-md mx-auto leading-relaxed">
             ZERO-TRACE AUTONOMOUS AI DATA VENDING MACHINE
           </p>
 
@@ -734,7 +729,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIC & CAROUSEL CONTROLLER -->
+  <!-- SCRIPT LOGIC & THREE.JS 3D SCULPTURE -->
   <script>
     // -------------------------------------------------------------
     // SLIDES DATA (Oleg Frolov Style Carousel with 3D Dynamics)
@@ -787,11 +782,22 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     let autoplayTimer = null;
     const AUTOPLAY_DELAY = 4500; // 4.5 seconds
 
+    // 3D Lighting & Physics Targets
+    let targetRimColor = new THREE.Color(0x94a3b8);
+    let rotationBurst = 0;
+    let targetBurst = 0;
+
     function renderSlide(index, direction = 1) {
       if (isTransitioning) return;
       isTransitioning = true;
       currentSlide = index;
       const data = slides[index];
+
+      // Trigger 3D physics swirl & lighting mood shift
+      targetBurst += direction * 1.5;
+      if (typeof THREE !== 'undefined' && targetRimColor) {
+        targetRimColor.setHex(data.rimHex);
+      }
 
       // Animate slide text out
       const wrapper = document.getElementById('slide-content-wrapper');
@@ -806,7 +812,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         
         const titleEl = document.getElementById('slide-title');
         titleEl.innerText = data.title;
-        titleEl.className = `text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium uppercase ${data.tracking} text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] transition-all duration-300 select-none`;
+        titleEl.className = `text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium uppercase ${data.tracking} text-white drop-shadow-2xl transition-all duration-300 select-none`;
 
         document.getElementById('slide-desc').innerText = data.desc;
         document.getElementById('slide-btn').querySelector('span').innerText = data.btnText;
@@ -886,7 +892,158 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
       if (e.key === 'ArrowLeft') prevSlide();
     });
 
+    // -------------------------------------------------------------
+    // THREE.JS 3D ORGANIC SILK SCULPTURE (Oleg Frolov Style)
+    // -------------------------------------------------------------
+    let scene, camera, renderer, morphMesh;
+    let keyLight, fillLight, rimLight, ambientLight;
+    let particles;
+    let basePositions = null;
+    let vertexCount = 0;
 
+    function init3DHero() {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas || typeof THREE === 'undefined') return;
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      camera.position.z = 5.2;
+
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // High-subdivision Sphere for Organic Cloth/Liquid Morphing Folds
+      const detail = 84;
+      const sphereGeometry = new THREE.SphereGeometry(1.65, detail, detail);
+      const posAttr = sphereGeometry.attributes.position;
+      vertexCount = posAttr.count;
+      basePositions = new Float32Array(posAttr.array); // Cache initial sphere geometry
+
+      // Luxury Matte Slate/Graphite Silk Material (Oleg Frolov Minimalist Velvet Finish)
+      const sculptureMaterial = new THREE.MeshStandardMaterial({
+        color: 0x272c36,
+        roughness: 0.78,
+        metalness: 0.18,
+        flatShading: false
+      });
+
+      morphMesh = new THREE.Mesh(sphereGeometry, sculptureMaterial);
+      scene.add(morphMesh);
+
+      // Studio Chiaroscuro Lighting Setup
+      ambientLight = new THREE.AmbientLight(0x141720, 0.95);
+      scene.add(ambientLight);
+
+      // Studio Key Light (Top-left, illuminates the sculpted silk ridges)
+      keyLight = new THREE.DirectionalLight(0xf8fafc, 2.2);
+      keyLight.position.set(4, 5, 4);
+      scene.add(keyLight);
+
+      // Soft Fill Light (Bottom-right, provides smooth shadowy depth)
+      fillLight = new THREE.DirectionalLight(0x334155, 0.85);
+      fillLight.position.set(-4, -3, -2);
+      scene.add(fillLight);
+
+      // Subtle Rim Light (Back-top silhouette edge)
+      rimLight = new THREE.DirectionalLight(0x94a3b8, 1.4);
+      rimLight.position.set(-2, 4, -4);
+      scene.add(rimLight);
+
+      // Cosmic Dust Micro-Particles (Floating in zero gravity)
+      const particleCount = 380;
+      const pGeom = new THREE.BufferGeometry();
+      const pPositions = new Float32Array(particleCount * 3);
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        pPositions[i] = (Math.random() - 0.5) * 18;
+        pPositions[i + 1] = (Math.random() - 0.5) * 14;
+        pPositions[i + 2] = (Math.random() - 0.5) * 14;
+      }
+      pGeom.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+      const pMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.038,
+        transparent: true,
+        opacity: 0.55,
+        blending: THREE.AdditiveBlending
+      });
+      particles = new THREE.Points(pGeom, pMaterial);
+      scene.add(particles);
+
+      // Window Resize Listener
+      window.addEventListener('resize', () => {
+        if (!camera || !renderer) return;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // Animation Loop with Multi-harmonic Silk/Liquid Displacement (Pure Ambient Motion)
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const time = clock.getElapsedTime();
+        const t = time * 0.72;
+
+        // Smoothly interpolate rotation burst from slide transitions
+        rotationBurst += (targetBurst - rotationBurst) * 0.05;
+
+        // Smoothly shift rim light accent color based on active slide
+        if (rimLight && targetRimColor) {
+          rimLight.color.lerp(targetRimColor, 0.05);
+        }
+
+        // Organic Cloth/Liquid Morphing Calculation
+        const positions = morphMesh.geometry.attributes.position.array;
+        for (let i = 0; i < vertexCount; i++) {
+          const i3 = i * 3;
+          const ox = basePositions[i3];
+          const oy = basePositions[i3 + 1];
+          const oz = basePositions[i3 + 2];
+
+          // Unit vector on sphere
+          const len = Math.sqrt(ox * ox + oy * oy + oz * oz);
+          const nx = ox / len;
+          const ny = oy / len;
+          const nz = oz / len;
+
+          // Diagonal drapery flow coordinate (creates elegant silk folds as in Oleg Frolov reference)
+          const diagonal = nx * 1.8 + ny * 2.2 + nz * 1.6;
+          const transverse = -nx * 1.6 + ny * 1.8 - nz * 1.2;
+
+          // Harmonic wave octaves
+          const fold1 = Math.sin(diagonal * 3.6 - t * 0.9) * Math.cos(transverse * 2.4 + t * 0.6);
+          const fold2 = Math.sin(nx * 4.2 + t * 0.8) * Math.cos(ny * 3.8 - t * 0.7) * Math.sin(nz * 3.5 + t * 0.5);
+          const swirl = Math.sin(ny * 4.8 + nx * 2.6 + t * 1.2) * 0.35;
+
+          // Combined smooth displacement
+          const displacement = fold1 * 0.22 + fold2 * 0.14 + swirl * 0.06;
+          const scale = 1.0 + displacement;
+
+          positions[i3] = ox * scale;
+          positions[i3 + 1] = oy * scale;
+          positions[i3 + 2] = oz * scale;
+        }
+
+        morphMesh.geometry.attributes.position.needsUpdate = true;
+        morphMesh.geometry.computeVertexNormals();
+
+        // Smooth non-cursor-reactive ambient cinematic rotation
+        morphMesh.rotation.y = time * 0.10 + rotationBurst * 0.4;
+        morphMesh.rotation.x = Math.sin(time * 0.08) * 0.12;
+        morphMesh.rotation.z = Math.cos(time * 0.06) * 0.06;
+
+        // Subtle drifting particles
+        particles.rotation.y = time * 0.015 + rotationBurst * 0.1;
+        particles.rotation.x = time * 0.008;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+    }
 
     // -------------------------------------------------------------
     // ANIMATED CUSTOM CURSOR SYSTEM (Oleg Frolov Style)
@@ -1149,6 +1306,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
 
     // Initialize UI on load
     window.addEventListener('DOMContentLoaded', () => {
+      init3DHero();
       setupCursorHovers();
       updateCharCount();
       renderSlide(0);
