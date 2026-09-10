@@ -39,79 +39,7 @@
 
 ---
 
-## 🧭 Mission & Overview
-
-**PrivaVend** is a decentralized, zero-trace, autonomous AI Data Vending Machine (DVM) built for the Nostr protocol. Settled off-chain with untraceable **Cashu Chaumian Ecash** tokens, PrivaVend ensures that neither the AI inference provider nor the Nostr relay operators can correlate a user's prompt or identity with their payment history.
-
-```
-       +--------------------------------------------------------------+
-       |                        CLIENT / USER                         |
-       +--------------------------------------------------------------+
-           |                                                      ^
-           | 1. Kind 5000 Job Request                             | 6. Kind 6000 Result
-           |    - Prompt: "Audit smart contract"                  |    - NIP-44 v2 Encrypted
-           |    - Ecash: "cashuA..." (NUT-00)                     |    - Decrypted locally
-           v                                                      |
-    +---------------+                                     +---------------+
-    |  Nostr Relay  | ==================================> |  Nostr Relay  |
-    |  (e.g. nos.lol)                                     | (e.g. damus.io)
-    +---------------+                                     +---------------+
-           |                                                      ^
-           | 2. Inbound Kind 5000 Feed                            | 5. Kind 6000 Broadcast
-           v                                                      |
-+-----------------------------------------------------------------------------+
-|                              PRIVAVEND DAEMON                               |
-|                                                                             |
-|  [1. Inbound Event Parser]                                                  |
-|      - Extracts prompt, cashu token, model, and requester pubkey            |
-|                                                                             |
-|  [2. Atomic Cashu Settlement (NUT-03)]                                      |
-|      - Connects to Cashu Mint (e.g., https://mint.minibits.cash/Bitcoin)   |
-|      - Swaps client inputs for fresh daemon outputs (prevents double-spend) |
-|                                                                             |
-|  [3. NIP-90 Feedback (Kind 7000)]                                           |
-|      - Broadcasts "processing" status feedback to customer                  |
-|                                                                             |
-|  [4. AI Inference Engine]                                                   |
-|      - Sanitizes inputs and guards prompt boundaries                        |
-|      - Dispatches to local Ollama (llama3/mistral) or external API          |
-|                                                                             |
-|  [5. NIP-44 v2 Encryption & Output Packaging]                               |
-|      - Computes ECDH shared secret (HKDF-Extract + Expand)                  |
-|      - Encrypts result with ChaCha20 + HMAC-SHA256 authenticated tag         |
-|      - Signs BIP-340 Schnorr signature and publishes Kind 6000 result       |
-+-----------------------------------------------------------------------------+
-```
-
----
-
-## 📂 Repository Layout
-
-```
-PrivaVend/
-├── worker/
-│   ├── __init__.py           # Package version and metadata
-│   ├── config.py             # Pydantic settings & keypair management
-│   ├── main.py               # Main daemon runner and graceful lifecycle
-│   └── core/
-│       ├── __init__.py
-│       ├── nostr.py          # NIP-01, NIP-44 v2, NIP-90, Bech32, and Relay Pool
-│       ├── cashu.py          # NUT-00 to NUT-07 ecash engine & atomic mint swap
-│       └── ai_engine.py      # Modular LLM runner (Ollama / API / Mock)
-├── scripts/
-│   └── test_client.py        # Interactive CLI to send jobs + cashu tokens
-├── tests/
-│   ├── test_cashu.py         # Cashu BDHKE, tokens, and swap unit tests
-│   ├── test_nostr.py         # BIP-340, NIP-44 v2, NIP-01, and NIP-90 unit tests
-│   └── test_e2e.py           # End-to-end daemon & client integration test
-├── .env.example              # Template environment variables
-├── requirements.txt          # Production dependencies
-└── README.md                 # Complete documentation
-```
-
----
-
-## 🚀 Quickstart Guide
+## 💻 Local Setup & Quickstart Guide
 
 ### 1. Installation
 
@@ -119,6 +47,7 @@ Requires Python 3.11+.
 
 ```bash
 # Clone and enter the repository
+git clone https://github.com/Shuvankar11/PrivaVend.git
 cd PrivaVend
 
 # Install dependencies
@@ -192,7 +121,7 @@ The test client will:
 
 ---
 
-## 🧪 Running the Test Suite
+### 5. Running the Test Suite
 
 Execute the full pytest suite:
 
@@ -218,6 +147,78 @@ tests/test_nostr.py::test_nip90_job_parsing PASSED
 tests/test_nostr.py::test_nip90_feedback_and_result_generation PASSED
 
 ============================= 14 passed in 1.30s ==============================
+```
+
+---
+
+## 🧭 Mission & Overview
+
+**PrivaVend** is a decentralized, zero-trace, autonomous AI Data Vending Machine (DVM) built for the Nostr protocol. Settled off-chain with untraceable **Cashu Chaumian Ecash** tokens, PrivaVend ensures that neither the AI inference provider nor the Nostr relay operators can correlate a user's prompt or identity with their payment history.
+
+```
+       +--------------------------------------------------------------+
+       |                        CLIENT / USER                         |
+       +--------------------------------------------------------------+
+           |                                                      ^
+           | 1. Kind 5000 Job Request                             | 6. Kind 6000 Result
+           |    - Prompt: "Audit smart contract"                  |    - NIP-44 v2 Encrypted
+           |    - Ecash: "cashuA..." (NUT-00)                     |    - Decrypted locally
+           v                                                      |
+    +---------------+                                     +---------------+
+    |  Nostr Relay  | ==================================> |  Nostr Relay  |
+    |  (e.g. nos.lol)                                     | (e.g. damus.io)
+    +---------------+                                     +---------------+
+           |                                                      ^
+           | 2. Inbound Kind 5000 Feed                            | 5. Kind 6000 Broadcast
+           v                                                      |
++-----------------------------------------------------------------------------+
+|                              PRIVAVEND DAEMON                               |
+|                                                                             |
+|  [1. Inbound Event Parser]                                                  |
+|      - Extracts prompt, cashu token, model, and requester pubkey            |
+|                                                                             |
+|  [2. Atomic Cashu Settlement (NUT-03)]                                      |
+|      - Connects to Cashu Mint (e.g., https://mint.minibits.cash/Bitcoin)   |
+|      - Swaps client inputs for fresh daemon outputs (prevents double-spend) |
+|                                                                             |
+|  [3. NIP-90 Feedback (Kind 7000)]                                           |
+|      - Broadcasts "processing" status feedback to customer                  |
+|                                                                             |
+|  [4. AI Inference Engine]                                                   |
+|      - Sanitizes inputs and guards prompt boundaries                        |
+|      - Dispatches to local Ollama (llama3/mistral) or external API          |
+|                                                                             |
+|  [5. NIP-44 v2 Encryption & Output Packaging]                               |
+|      - Computes ECDH shared secret (HKDF-Extract + Expand)                  |
+|      - Encrypts result with ChaCha20 + HMAC-SHA256 authenticated tag         |
+|      - Signs BIP-340 Schnorr signature and publishes Kind 6000 result       |
++-----------------------------------------------------------------------------+
+```
+
+---
+
+## 📂 Repository Layout
+
+```
+PrivaVend/
+├── worker/
+│   ├── __init__.py           # Package version and metadata
+│   ├── config.py             # Pydantic settings & keypair management
+│   ├── main.py               # Main daemon runner and graceful lifecycle
+│   └── core/
+│       ├── __init__.py
+│       ├── nostr.py          # NIP-01, NIP-44 v2, NIP-90, Bech32, and Relay Pool
+│       ├── cashu.py          # NUT-00 to NUT-07 ecash engine & atomic mint swap
+│       └── ai_engine.py      # Modular LLM runner (Ollama / API / Mock)
+├── scripts/
+│   └── test_client.py        # Interactive CLI to send jobs + cashu tokens
+├── tests/
+│   ├── test_cashu.py         # Cashu BDHKE, tokens, and swap unit tests
+│   ├── test_nostr.py         # BIP-340, NIP-44 v2, NIP-01, and NIP-90 unit tests
+│   └── test_e2e.py           # End-to-end daemon & client integration test
+├── .env.example              # Template environment variables
+├── requirements.txt          # Production dependencies
+└── README.md                 # Complete documentation
 ```
 
 ---
