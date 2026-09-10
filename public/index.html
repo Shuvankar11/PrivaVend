@@ -251,25 +251,9 @@
   <!-- WORKSPACE & INTERACTIVE WORKSTATION SECTION -->
   <div id="workspace" class="w-full bg-[#050608] min-h-screen py-10 px-4 md:px-8 border-t border-white/5">
     
-    <!-- Track Badges Header -->
-    <div class="max-w-7xl mx-auto mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
-      <div class="flex items-center gap-3">
-        <span class="text-xs font-mono uppercase tracking-widest text-gray-400">Submission Tracks:</span>
-        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-amber-950/60 text-goldbtc border border-goldbtc/30 font-semibold">Machine Money</span>
-        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 font-semibold">Freedom Stack</span>
-        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-purple-950/60 text-purple-300 border border-purple-500/30 font-semibold">Cypherpunk</span>
-      </div>
-
-      <!-- Live Network Status Pill -->
-      <div class="flex items-center gap-2 py-1 px-3 rounded-full bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span>Relays Active: 3 Connected</span>
-      </div>
-    </div>
-
     <!-- Interactive Navigation Tabs -->
-    <div class="max-w-7xl mx-auto mb-8">
-      <div class="flex items-center space-x-2 border-b border-white/10 overflow-x-auto pb-1 text-xs font-mono uppercase tracking-wider">
+    <div class="max-w-7xl mx-auto mb-8 flex items-center justify-between border-b border-white/10 pb-1">
+      <div class="flex items-center space-x-2 overflow-x-auto text-xs font-mono uppercase tracking-wider">
         <button onclick="switchTab('terminal')" id="tabBtn-terminal" class="px-5 py-3 rounded-t-xl font-bold border-b-2 border-cyanneon text-white bg-white/5 transition flex items-center gap-2">
           <i class="fa-solid fa-terminal text-cyanneon"></i> Interactive DVM Terminal
         </button>
@@ -282,6 +266,12 @@
         <button onclick="switchTab('specs')" id="tabBtn-specs" class="px-5 py-3 rounded-t-xl font-medium border-b-2 border-transparent text-gray-400 hover:text-white transition flex items-center gap-2">
           <i class="fa-solid fa-book-bookmark"></i> Protocol Specs
         </button>
+      </div>
+      
+      <!-- Subtle Live Network Status Pill -->
+      <div class="hidden sm:flex items-center gap-2 py-1.5 px-3.5 rounded-full bg-emerald-950/40 border border-emerald-500/20 text-emerald-400 text-[11px] font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Relays Active (3/3)</span>
       </div>
     </div>
 
