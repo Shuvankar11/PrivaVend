@@ -40,22 +40,22 @@
 
   <style>
     body {
-      background-color: #050608;
-      color: #e2e8f0;
+      background-color: #000000;
+      color: #f1f5f9;
       overflow-x: hidden;
     }
 
-    /* Futuristic Cyberpunk HUD Target Cursor System */
+    /* Minimalist Precision Cyber Arrow Cursor & Magnetic Halo */
     @media (hover: hover) and (pointer: fine) {
-      body.hud-cursor-active,
-      body.hud-cursor-active a,
-      body.hud-cursor-active button,
-      body.hud-cursor-active input,
-      body.hud-cursor-active select,
-      body.hud-cursor-active textarea,
-      body.hud-cursor-active [role="button"],
-      body.hud-cursor-active .slider-arrow,
-      body.hud-cursor-active .pill-btn {
+      body.custom-cursor-active,
+      body.custom-cursor-active a,
+      body.custom-cursor-active button,
+      body.custom-cursor-active input,
+      body.custom-cursor-active select,
+      body.custom-cursor-active textarea,
+      body.custom-cursor-active [role="button"],
+      body.custom-cursor-active .slider-arrow,
+      body.custom-cursor-active .pill-btn {
         cursor: none !important;
       }
     }
@@ -66,46 +66,48 @@
       top: 0;
       left: 0;
       z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: opacity 0.2s ease, transform 0.1s ease;
+      transform: translate(0, 0);
+      transition: opacity 0.2s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 0;
     }
 
-    #cursor-hud {
+    #cursor-halo {
       pointer-events: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 44px;
-      height: 44px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
       z-index: 99998;
-      transform: translate(-50%, -50%) rotate(0deg);
+      transform: translate(-50%, -50%);
       transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
                   height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 0.22s ease,
-                  color 0.3s ease,
+                  border-color 0.22s ease,
+                  background 0.22s ease,
+                  box-shadow 0.22s ease,
                   opacity 0.2s ease;
       opacity: 0;
-      color: #00f2fe;
     }
 
-    #cursor-hud.cursor-hover {
-      width: 60px;
-      height: 60px;
-      transform: translate(-50%, -50%) rotate(45deg);
-      filter: drop-shadow(0 0 12px currentColor);
+    #cursor-halo.cursor-hover {
+      width: 48px;
+      height: 48px;
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
     }
 
     #cursor-pointer.cursor-hover {
-      transform: translate(-50%, -50%) scale(1.3);
+      transform: scale(1.18);
     }
 
-    #cursor-hud.cursor-active {
-      width: 30px;
-      height: 30px;
-      transform: translate(-50%, -50%) rotate(90deg) scale(0.88);
-      filter: drop-shadow(0 0 16px currentColor);
+    #cursor-halo.cursor-active {
+      width: 18px;
+      height: 18px;
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.35);
     }
     
     /* Luxury Oleg Frolov Glassmorphism */
@@ -233,42 +235,24 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black hud-cursor-active">
+<body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black bg-black custom-cursor-active">
 
-  <!-- Futuristic Cyberpunk HUD Target Cursor System -->
-  <div id="cursor-hud">
-    <svg width="100%" height="100%" viewBox="0 0 40 40" fill="none" class="hud-svg w-full h-full text-cyan-400 transition-colors duration-300">
-      <!-- 4 Corner Precision HUD Brackets -->
-      <path d="M 4,11 L 4,4 L 11,4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M 29,4 L 36,4 L 36,11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M 36,29 L 36,36 L 29,36" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M 11,36 L 4,36 L 4,29" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      <!-- Cardinal Reticle Ticks -->
-      <line x1="20" y1="2" x2="20" y2="6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
-      <line x1="20" y1="34" x2="20" y2="38" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
-      <line x1="2" y1="20" x2="6" y2="20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
-      <line x1="34" y1="20" x2="38" y2="20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
-    </svg>
-  </div>
+  <!-- Minimalist Precision Cyber Arrow Pointer & Magnetic Halo -->
+  <div id="cursor-halo"></div>
   <div id="cursor-pointer">
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" class="pointer-svg text-cyan-300">
-      <!-- Precision Target Crosshair Core -->
-      <polygon points="11,3 19,11 11,19 3,11" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1"/>
-      <circle cx="11" cy="11" r="2.2" fill="#ffffff" class="drop-shadow-[0_0_8px_#00f2fe]"/>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="pointer-svg drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+      <!-- Crisp White Cyber Arrow with 1.2px dark outline -->
+      <path d="M 3,2 L 17,9 L 10,11 L 7,18 Z" fill="#ffffff" stroke="#050608" stroke-width="1.3" stroke-linejoin="round"/>
+      <circle cx="10" cy="11" r="1.3" fill="#00f2fe"/>
     </svg>
   </div>
 
-  <!-- HERO SECTION (Luxury Minimalist Dark Aesthetic with Ambient Aura & Stardust) -->
-  <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none bg-[#07090e]">
+  <!-- HERO SECTION (Pure Deep Pitch-Black Full Dark Theme with Stardust) -->
+  <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none bg-black">
     
-    <!-- Dynamic Ambient Aura Lighting (Smooth Luxury Atmospheric Glows) -->
+    <!-- Subtle Cyber Grid on Pure Black Void (Zero colored haze/tint) -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
-      <!-- Primary Atmospheric Aura (Transitions color with active slide) -->
-      <div id="hero-aura-1" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] w-[600px] sm:w-[840px] md:w-[1020px] h-[360px] sm:h-[480px] md:h-[580px] rounded-full blur-[140px] opacity-35 transition-all duration-1000 bg-[#00f2fe]/30 pointer-events-none"></div>
-      <!-- Secondary Accent Aura -->
-      <div id="hero-aura-2" class="absolute top-1/2 left-1/2 -translate-x-[40%] -translate-y-[44%] w-[420px] sm:w-[580px] md:w-[720px] h-[280px] sm:h-[380px] md:h-[450px] rounded-full blur-[120px] opacity-25 transition-all duration-1000 bg-[#f7931a]/25 pointer-events-none"></div>
-      <!-- Subtle Cyber Grid Mask -->
-      <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_75%,transparent_100%)] pointer-events-none opacity-20"></div>
     </div>
 
     <!-- Three.js Cosmic Dust Canvas -->
@@ -301,10 +285,10 @@
           <span class="hidden lg:inline text-[10px]">Audio FX</span>
         </button>
 
-        <!-- Custom HUD Cursor Toggle -->
-        <button id="cursorToggleBtn" onclick="toggleCursorMode()" class="hover:text-white transition duration-200 flex items-center gap-1.5" title="Toggle Cyber HUD Cursor">
-          <i id="cursorIcon" class="fa-solid fa-crosshairs text-cyanneon text-xs"></i>
-          <span id="cursorToggleText" class="hidden lg:inline text-[10px]">HUD Cursor</span>
+        <!-- Custom Cursor Toggle -->
+        <button id="cursorToggleBtn" onclick="toggleCursorMode()" class="hover:text-white transition duration-200 flex items-center gap-1.5" title="Toggle Custom Cursor">
+          <i id="cursorIcon" class="fa-solid fa-arrow-pointer text-white text-xs"></i>
+          <span id="cursorToggleText" class="hidden lg:inline text-[10px]">Custom Cursor</span>
         </button>
 
         <!-- GitHub -->
@@ -382,7 +366,7 @@
   </section>
 
   <!-- WORKSPACE & INTERACTIVE WORKSTATION SECTION -->
-  <div id="workspace" class="w-full bg-[#050608] min-h-screen py-10 px-4 md:px-8 border-t border-white/5">
+  <div id="workspace" class="w-full bg-black min-h-screen py-10 px-4 md:px-8 border-t border-white/10">
 
     <!-- Interactive Navigation Tabs -->
     <div class="max-w-7xl mx-auto mb-8 flex items-center justify-between border-b border-white/10 pb-1">
@@ -753,7 +737,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t border-white/10 bg-[#050608] py-8 text-center text-xs font-mono text-gray-500">
+  <footer class="border-t border-white/10 bg-black py-8 text-center text-xs font-mono text-gray-500">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
         PrivaVend — Built for the <strong class="text-gray-300">Bitshala BOSS Battle Hackathon 2026</strong>
@@ -781,8 +765,6 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         btnText: 'ENTER TERMINAL',
         targetTab: 'terminal',
         tagColor: '#00f2fe',
-        aura1: 'rgba(0, 242, 254, 0.32)',
-        aura2: 'rgba(247, 147, 26, 0.22)',
         tracking: 'tracking-[0.18em] sm:tracking-[0.24em]'
       },
       {
@@ -792,8 +774,6 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         btnText: 'VIEW ECASH ENGINE',
         targetTab: 'bdhke',
         tagColor: '#f7931a',
-        aura1: 'rgba(247, 147, 26, 0.34)',
-        aura2: 'rgba(234, 179, 8, 0.25)',
         tracking: 'tracking-[0.12em] sm:tracking-[0.18em]'
       },
       {
@@ -803,8 +783,6 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         btnText: 'EXPLORE RELAY MESH',
         targetTab: 'network',
         tagColor: '#10b981',
-        aura1: 'rgba(16, 185, 129, 0.32)',
-        aura2: 'rgba(6, 182, 212, 0.22)',
         tracking: 'tracking-[0.12em] sm:tracking-[0.18em]'
       },
       {
@@ -814,8 +792,6 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         btnText: 'INSPECT PROTOCOL SPECS',
         targetTab: 'specs',
         tagColor: '#a855f7',
-        aura1: 'rgba(168, 85, 247, 0.34)',
-        aura2: 'rgba(0, 242, 254, 0.24)',
         tracking: 'tracking-[0.16em] sm:tracking-[0.22em]'
       }
     ];
@@ -837,18 +813,6 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
 
       // Trigger space particle drift acceleration
       targetBurst += direction * 1.2;
-
-      // Dynamic Ambient Aura Lighting Shift (Smooth high-end transitions)
-      const aura1 = document.getElementById('hero-aura-1');
-      const aura2 = document.getElementById('hero-aura-2');
-      if (aura1) aura1.style.backgroundColor = data.aura1;
-      if (aura2) aura2.style.backgroundColor = data.aura2;
-
-      // Update HUD cursor accent color to sync with current slide
-      const hudEl = document.getElementById('cursor-hud');
-      const ptrEl = document.getElementById('cursor-pointer');
-      if (hudEl) hudEl.style.color = data.tagColor;
-      if (ptrEl) ptrEl.style.color = data.tagColor;
 
       // Animate slide text out
       const wrapper = document.getElementById('slide-content-wrapper');
@@ -1010,27 +974,27 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     }
 
     // -------------------------------------------------------------
-    // CYBERPUNK HUD TARGET CURSOR SYSTEM
+    // MINIMALIST PRECISION CYBER ARROW & MAGNETIC HALO
     // -------------------------------------------------------------
     let mouseCursorX = -100, mouseCursorY = -100;
-    let hudCursorX = -100, hudCursorY = -100;
-    const hud = document.getElementById('cursor-hud');
+    let haloCursorX = -100, haloCursorY = -100;
+    const halo = document.getElementById('cursor-halo');
     const pointer = document.getElementById('cursor-pointer');
-    let isHudEnabled = localStorage.getItem('privavend_hud_cursor') !== 'false'; // Enabled by default
+    let isCustomCursorEnabled = localStorage.getItem('privavend_custom_cursor') !== 'false'; // Enabled by default
     let cursorActive = false;
 
     function applyCursorMode() {
       const icon = document.getElementById('cursorIcon');
       const text = document.getElementById('cursorToggleText');
-      if (isHudEnabled) {
-        document.body.classList.add('hud-cursor-active');
-        if (hud) hud.style.display = 'block';
+      if (isCustomCursorEnabled) {
+        document.body.classList.add('custom-cursor-active');
+        if (halo) halo.style.display = 'block';
         if (pointer) pointer.style.display = 'block';
-        if (icon) icon.className = 'fa-solid fa-crosshairs text-cyanneon text-xs';
-        if (text) text.innerText = 'HUD Cursor';
+        if (icon) icon.className = 'fa-solid fa-arrow-pointer text-white text-xs';
+        if (text) text.innerText = 'Custom Cursor';
       } else {
-        document.body.classList.remove('hud-cursor-active');
-        if (hud) hud.style.display = 'none';
+        document.body.classList.remove('custom-cursor-active');
+        if (halo) halo.style.display = 'none';
         if (pointer) pointer.style.display = 'none';
         if (icon) icon.className = 'fa-solid fa-arrow-pointer text-gray-500 text-xs';
         if (text) text.innerText = 'Default Cursor';
@@ -1038,8 +1002,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     }
 
     function toggleCursorMode() {
-      isHudEnabled = !isHudEnabled;
-      localStorage.setItem('privavend_hud_cursor', isHudEnabled ? 'true' : 'false');
+      isCustomCursorEnabled = !isCustomCursorEnabled;
+      localStorage.setItem('privavend_custom_cursor', isCustomCursorEnabled ? 'true' : 'false');
       applyCursorMode();
       playTone(620, 0.05);
     }
@@ -1048,63 +1012,63 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
       mouseCursorX = e.clientX;
       mouseCursorY = e.clientY;
 
-      if (pointer && isHudEnabled) {
+      if (pointer && isCustomCursorEnabled) {
         pointer.style.left = mouseCursorX + 'px';
         pointer.style.top = mouseCursorY + 'px';
       }
 
-      if (!cursorActive && isHudEnabled) {
+      if (!cursorActive && isCustomCursorEnabled) {
         cursorActive = true;
-        if (hud) hud.style.opacity = '1';
+        if (halo) halo.style.opacity = '1';
         if (pointer) pointer.style.opacity = '1';
       }
     });
 
     document.addEventListener('mouseleave', () => {
       cursorActive = false;
-      if (hud) hud.style.opacity = '0';
+      if (halo) halo.style.opacity = '0';
       if (pointer) pointer.style.opacity = '0';
     });
 
     document.addEventListener('mouseenter', () => {
-      if (isHudEnabled) {
+      if (isCustomCursorEnabled) {
         cursorActive = true;
-        if (hud) hud.style.opacity = '1';
+        if (halo) halo.style.opacity = '1';
         if (pointer) pointer.style.opacity = '1';
       }
     });
 
-    function updateHudFollower() {
-      if (isHudEnabled && hud) {
-        hudCursorX += (mouseCursorX - hudCursorX) * 0.22;
-        hudCursorY += (mouseCursorY - hudCursorY) * 0.22;
-        hud.style.left = hudCursorX + 'px';
-        hud.style.top = hudCursorY + 'px';
+    function updateHaloFollower() {
+      if (isCustomCursorEnabled && halo) {
+        haloCursorX += (mouseCursorX - haloCursorX) * 0.22;
+        haloCursorY += (mouseCursorY - haloCursorY) * 0.22;
+        halo.style.left = haloCursorX + 'px';
+        halo.style.top = haloCursorY + 'px';
       }
-      requestAnimationFrame(updateHudFollower);
+      requestAnimationFrame(updateHaloFollower);
     }
-    updateHudFollower();
+    updateHaloFollower();
 
     function setupCursorHovers() {
       const interactables = document.querySelectorAll('a, button, input, textarea, select, .slider-arrow, .pill-btn, [role="button"]');
       interactables.forEach(el => {
         el.addEventListener('mouseenter', () => {
-          if (hud) hud.classList.add('cursor-hover');
+          if (halo) halo.classList.add('cursor-hover');
           if (pointer) pointer.classList.add('cursor-hover');
         });
         el.addEventListener('mouseleave', () => {
-          if (hud) hud.classList.remove('cursor-hover');
+          if (halo) halo.classList.remove('cursor-hover');
           if (pointer) pointer.classList.remove('cursor-hover');
         });
       });
     }
 
     window.addEventListener('mousedown', () => {
-      if (hud) hud.classList.add('cursor-active');
+      if (halo) halo.classList.add('cursor-active');
     });
 
     window.addEventListener('mouseup', () => {
-      if (hud) hud.classList.remove('cursor-active');
+      if (halo) halo.classList.remove('cursor-active');
     });
 
     // -------------------------------------------------------------
