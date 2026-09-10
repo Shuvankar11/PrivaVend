@@ -45,63 +45,67 @@
       overflow-x: hidden;
     }
 
-    /* Custom Animated Cursor (Oleg Frolov Luxury Style) */
+    /* Futuristic Cyberpunk HUD Target Cursor System */
     @media (hover: hover) and (pointer: fine) {
-      *, *::before, *::after {
+      body.hud-cursor-active,
+      body.hud-cursor-active a,
+      body.hud-cursor-active button,
+      body.hud-cursor-active input,
+      body.hud-cursor-active select,
+      body.hud-cursor-active textarea,
+      body.hud-cursor-active [role="button"],
+      body.hud-cursor-active .slider-arrow,
+      body.hud-cursor-active .pill-btn {
         cursor: none !important;
       }
     }
-    #cursor-dot {
+
+    #cursor-pointer {
       pointer-events: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 6px;
-      height: 6px;
-      background: #ffffff;
-      border-radius: 50%;
       z-index: 99999;
       transform: translate(-50%, -50%);
-      transition: opacity 0.2s ease, transform 0.15s ease, background 0.2s ease;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.85);
+      transition: opacity 0.2s ease, transform 0.1s ease;
       opacity: 0;
     }
-    #cursor-ring {
+
+    #cursor-hud {
       pointer-events: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 36px;
-      height: 36px;
-      border: 1.5px solid rgba(255, 255, 255, 0.45);
-      border-radius: 50%;
+      width: 44px;
+      height: 44px;
       z-index: 99998;
-      transform: translate(-50%, -50%);
-      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                  height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                  background 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                  box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      transform: translate(-50%, -50%) rotate(0deg);
+      transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.22s ease,
+                  color 0.3s ease,
                   opacity 0.2s ease;
       opacity: 0;
+      color: #00f2fe;
     }
-    #cursor-ring.cursor-hover {
-      width: 56px;
-      height: 56px;
-      border-color: rgba(255, 255, 255, 0.95);
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+
+    #cursor-hud.cursor-hover {
+      width: 60px;
+      height: 60px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      filter: drop-shadow(0 0 12px currentColor);
     }
-    #cursor-dot.cursor-hover {
-      background: #ffffff;
-      transform: translate(-50%, -50%) scale(0.65);
-      box-shadow: 0 0 12px #ffffff;
+
+    #cursor-pointer.cursor-hover {
+      transform: translate(-50%, -50%) scale(1.3);
     }
-    #cursor-ring.cursor-active {
-      width: 26px;
-      height: 26px;
-      border-color: rgba(255, 255, 255, 1);
-      background: rgba(255, 255, 255, 0.35);
+
+    #cursor-hud.cursor-active {
+      width: 30px;
+      height: 30px;
+      transform: translate(-50%, -50%) rotate(90deg) scale(0.88);
+      filter: drop-shadow(0 0 16px currentColor);
     }
     
     /* Luxury Oleg Frolov Glassmorphism */
@@ -229,17 +233,46 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black">
+<body class="min-h-screen flex flex-col font-sans selection:bg-white selection:text-black hud-cursor-active">
 
-  <!-- Animated Custom Cursor Elements -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
+  <!-- Futuristic Cyberpunk HUD Target Cursor System -->
+  <div id="cursor-hud">
+    <svg width="100%" height="100%" viewBox="0 0 40 40" fill="none" class="hud-svg w-full h-full text-cyan-400 transition-colors duration-300">
+      <!-- 4 Corner Precision HUD Brackets -->
+      <path d="M 4,11 L 4,4 L 11,4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 29,4 L 36,4 L 36,11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 36,29 L 36,36 L 29,36" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 11,36 L 4,36 L 4,29" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Cardinal Reticle Ticks -->
+      <line x1="20" y1="2" x2="20" y2="6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="20" y1="34" x2="20" y2="38" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="2" y1="20" x2="6" y2="20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="34" y1="20" x2="38" y2="20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+    </svg>
+  </div>
+  <div id="cursor-pointer">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" class="pointer-svg text-cyan-300">
+      <!-- Precision Target Crosshair Core -->
+      <polygon points="11,3 19,11 11,19 3,11" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="1"/>
+      <circle cx="11" cy="11" r="2.2" fill="#ffffff" class="drop-shadow-[0_0_8px_#00f2fe]"/>
+    </svg>
+  </div>
 
-  <!-- 3D HERO SECTION (Oleg Frolov Style with Matte Organic Morphing Sculpture) -->
-  <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none bg-[radial-gradient(circle_at_50%_46%,#161a24_0%,#0c0e14_50%,#050608_88%)]">
+  <!-- HERO SECTION (Luxury Minimalist Dark Aesthetic with Ambient Aura & Stardust) -->
+  <section class="relative w-full h-screen min-h-[640px] flex flex-col justify-between overflow-hidden border-b border-white/10 select-none bg-[#07090e]">
     
-    <!-- Three.js 3D Morphing Sculpture Canvas -->
-    <canvas id="hero-canvas"></canvas>
+    <!-- Dynamic Ambient Aura Lighting (Smooth Luxury Atmospheric Glows) -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <!-- Primary Atmospheric Aura (Transitions color with active slide) -->
+      <div id="hero-aura-1" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] w-[600px] sm:w-[840px] md:w-[1020px] h-[360px] sm:h-[480px] md:h-[580px] rounded-full blur-[140px] opacity-35 transition-all duration-1000 bg-[#00f2fe]/30 pointer-events-none"></div>
+      <!-- Secondary Accent Aura -->
+      <div id="hero-aura-2" class="absolute top-1/2 left-1/2 -translate-x-[40%] -translate-y-[44%] w-[420px] sm:w-[580px] md:w-[720px] h-[280px] sm:h-[380px] md:h-[450px] rounded-full blur-[120px] opacity-25 transition-all duration-1000 bg-[#f7931a]/25 pointer-events-none"></div>
+      <!-- Subtle Cyber Grid Mask -->
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40"></div>
+    </div>
+
+    <!-- Three.js Cosmic Dust Canvas -->
+    <canvas id="hero-canvas" class="relative z-10"></canvas>
 
     <!-- Top Minimal Navigation -->
     <header class="relative z-20 w-full px-6 md:px-12 pt-6 pb-4 flex items-center justify-between">
@@ -256,7 +289,7 @@
       </a>
 
       <!-- Minimalist Navigation Links -->
-      <nav class="flex items-center space-x-5 md:space-x-8 text-xs font-mono uppercase tracking-[0.2em] text-gray-400">
+      <nav class="flex items-center space-x-4 md:space-x-7 text-xs font-mono uppercase tracking-[0.2em] text-gray-400">
         <a href="#workspace" onclick="switchTab('terminal')" class="hover:text-white transition duration-200 hidden md:inline">Terminal</a>
         <a href="#workspace" onclick="switchTab('network')" class="hover:text-white transition duration-200 hidden md:inline">Relays</a>
         <a href="#workspace" onclick="switchTab('bdhke')" class="hover:text-white transition duration-200 hidden md:inline">BDHKE Math</a>
@@ -266,6 +299,12 @@
         <button id="soundToggleBtn" onclick="toggleSound()" class="hover:text-white transition duration-200 flex items-center gap-1.5" title="Toggle Audio Feedback">
           <i id="soundIcon" class="fa-solid fa-volume-high text-cyanneon text-xs"></i>
           <span class="hidden lg:inline text-[10px]">Audio FX</span>
+        </button>
+
+        <!-- Custom HUD Cursor Toggle -->
+        <button id="cursorToggleBtn" onclick="toggleCursorMode()" class="hover:text-white transition duration-200 flex items-center gap-1.5" title="Toggle Cyber HUD Cursor">
+          <i id="cursorIcon" class="fa-solid fa-crosshairs text-cyanneon text-xs"></i>
+          <span id="cursorToggleText" class="hidden lg:inline text-[10px]">HUD Cursor</span>
         </button>
 
         <!-- GitHub -->
@@ -742,10 +781,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         btnText: 'ENTER TERMINAL',
         targetTab: 'terminal',
         tagColor: '#00f2fe',
-        lightCyanHex: 0x00f2fe,
-        lightAmberHex: 0xf7931a,
-        lightCyanIntensity: 1.9,
-        lightAmberIntensity: 1.3,
+        aura1: 'rgba(0, 242, 254, 0.32)',
+        aura2: 'rgba(247, 147, 26, 0.22)',
         tracking: 'tracking-[0.18em] sm:tracking-[0.24em]'
       },
       {
@@ -755,10 +792,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         btnText: 'VIEW ECASH ENGINE',
         targetTab: 'bdhke',
         tagColor: '#f7931a',
-        lightCyanHex: 0xf7931a,
-        lightAmberHex: 0xffaa00,
-        lightCyanIntensity: 2.6,
-        lightAmberIntensity: 1.8,
+        aura1: 'rgba(247, 147, 26, 0.34)',
+        aura2: 'rgba(234, 179, 8, 0.25)',
         tracking: 'tracking-[0.12em] sm:tracking-[0.18em]'
       },
       {
@@ -768,10 +803,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         btnText: 'EXPLORE RELAY MESH',
         targetTab: 'network',
         tagColor: '#10b981',
-        lightCyanHex: 0x10b981,
-        lightAmberHex: 0x00f2fe,
-        lightCyanIntensity: 2.4,
-        lightAmberIntensity: 1.2,
+        aura1: 'rgba(16, 185, 129, 0.32)',
+        aura2: 'rgba(6, 182, 212, 0.22)',
         tracking: 'tracking-[0.12em] sm:tracking-[0.18em]'
       },
       {
@@ -781,10 +814,8 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         btnText: 'INSPECT PROTOCOL SPECS',
         targetTab: 'specs',
         tagColor: '#a855f7',
-        lightCyanHex: 0xa855f7,
-        lightAmberHex: 0x00f2fe,
-        lightCyanIntensity: 2.5,
-        lightAmberIntensity: 1.5,
+        aura1: 'rgba(168, 85, 247, 0.34)',
+        aura2: 'rgba(0, 242, 254, 0.24)',
         tracking: 'tracking-[0.16em] sm:tracking-[0.22em]'
       }
     ];
@@ -794,14 +825,9 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     let autoplayTimer = null;
     const AUTOPLAY_DELAY = 4500; // 4.5 seconds
 
-    // 3D Lighting & Physics Targets
-    let targetLight1Color = new THREE.Color(0x00f2fe);
-    let targetLight2Color = new THREE.Color(0xf7931a);
-    let targetLight1Intensity = 1.9;
-    let targetLight2Intensity = 1.3;
+    // 3D Particle Swirl Physics Targets
     let rotationBurst = 0;
     let targetBurst = 0;
-    let waveSurge = 0;
 
     function renderSlide(index, direction = 1) {
       if (isTransitioning) return;
@@ -809,13 +835,20 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
       currentSlide = index;
       const data = slides[index];
 
-      // Trigger 3D physics swirl & lighting mood shift
-      targetBurst += direction * 1.5;
-      waveSurge = 1.0;
-      targetLight1Color.setHex(data.lightCyanHex);
-      targetLight2Color.setHex(data.lightAmberHex);
-      targetLight1Intensity = data.lightCyanIntensity;
-      targetLight2Intensity = data.lightAmberIntensity;
+      // Trigger space particle drift acceleration
+      targetBurst += direction * 1.2;
+
+      // Dynamic Ambient Aura Lighting Shift (Smooth high-end transitions)
+      const aura1 = document.getElementById('hero-aura-1');
+      const aura2 = document.getElementById('hero-aura-2');
+      if (aura1) aura1.style.backgroundColor = data.aura1;
+      if (aura2) aura2.style.backgroundColor = data.aura2;
+
+      // Update HUD cursor accent color to sync with current slide
+      const hudEl = document.getElementById('cursor-hud');
+      const ptrEl = document.getElementById('cursor-pointer');
+      if (hudEl) hudEl.style.color = data.tagColor;
+      if (ptrEl) ptrEl.style.color = data.tagColor;
 
       // Animate slide text out
       const wrapper = document.getElementById('slide-content-wrapper');
@@ -911,11 +944,9 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     });
 
     // -------------------------------------------------------------
-    // THREE.JS 3D MORPHING LIQUID SCULPTURE (Oleg Frolov Style)
+    // THREE.JS COSMIC DUST & DEEP SPACE PARTICLES
     // -------------------------------------------------------------
-    let scene, camera, renderer, sphere, origPositions, posAttribute;
-    let lightCyan, lightAmber, lightFront;
-    let particles;
+    let scene, camera, renderer, particles;
 
     function init3DHero() {
       const canvas = document.getElementById('hero-canvas');
@@ -926,61 +957,28 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
 
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-      camera.position.z = 5.2;
+      camera.position.z = 5.5;
 
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      // Geometry: Icosahedron with detail for smooth organic deformation
-      const geometry = new THREE.IcosahedronGeometry(1.65, 52);
-      posAttribute = geometry.attributes.position;
-      origPositions = new Float32Array(posAttribute.array);
-
-      // Material: Dark metallic organic surface (as shown in screenshot FD82F59B)
-      const material = new THREE.MeshStandardMaterial({
-        color: 0x181a20,
-        roughness: 0.28,
-        metalness: 0.88
-      });
-
-      sphere = new THREE.Mesh(geometry, material);
-      scene.add(sphere);
-
-      // Ambient & Directional Rim Lights
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
-      scene.add(ambientLight);
-
-      // Dynamic Rim Light 1 (Cyan/Primary)
-      lightCyan = new THREE.DirectionalLight(0x00f2fe, 1.9);
-      lightCyan.position.set(5, 3, 4);
-      scene.add(lightCyan);
-
-      // Dynamic Rim Light 2 (Amber/Secondary)
-      lightAmber = new THREE.DirectionalLight(0xf7931a, 1.3);
-      lightAmber.position.set(-5, -3, -2);
-      scene.add(lightAmber);
-
-      // Soft white key light front
-      lightFront = new THREE.PointLight(0xffffff, 1.0, 25);
-      lightFront.position.set(0, 2, 5);
-      scene.add(lightFront);
-
-      // Cosmic Dust Particles (Oleg Frolov Style)
-      const particleCount = 420;
+      // Cosmic Dust & Starlight Particle Field (Deep Space Atmosphere)
+      const particleCount = 520;
       const pGeom = new THREE.BufferGeometry();
       const pPositions = new Float32Array(particleCount * 3);
       for (let i = 0; i < particleCount * 3; i += 3) {
-        pPositions[i] = (Math.random() - 0.5) * 16;
-        pPositions[i + 1] = (Math.random() - 0.5) * 12;
-        pPositions[i + 2] = (Math.random() - 0.5) * 14;
+        pPositions[i] = (Math.random() - 0.5) * 22;
+        pPositions[i + 1] = (Math.random() - 0.5) * 16;
+        pPositions[i + 2] = (Math.random() - 0.5) * 16;
       }
       pGeom.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
       const pMaterial = new THREE.PointsMaterial({
         color: 0xffffff,
-        size: 0.035,
+        size: 0.038,
         transparent: true,
-        opacity: 0.6
+        opacity: 0.72,
+        blending: THREE.AdditiveBlending
       });
       particles = new THREE.Points(pGeom, pMaterial);
       scene.add(particles);
@@ -993,42 +991,18 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
 
-      // Animation Loop
+      // Ambient Animation Loop (Pure zero-gravity drift, no heavy obstructing meshes)
       const clock = new THREE.Clock();
       function animate() {
         requestAnimationFrame(animate);
-        const time = clock.getElapsedTime() * 0.75;
+        const time = clock.getElapsedTime() * 0.5;
 
-        // Smoothly interpolate rotation burst from slide transitions
+        // Smoothly decay slide transition burst
         rotationBurst += (targetBurst - rotationBurst) * 0.06;
 
-        // Smoothly decay wave surge back to 0
-        waveSurge += (0 - waveSurge) * 0.05;
-        const currentWaveAmp = 0.26 + waveSurge * 0.25;
-
-        // Smoothly interpolate dynamic light colors and intensities
-        lightCyan.color.lerp(targetLight1Color, 0.05);
-        lightAmber.color.lerp(targetLight2Color, 0.05);
-        lightCyan.intensity += (targetLight1Intensity - lightCyan.intensity) * 0.05;
-        lightAmber.intensity += (targetLight2Intensity - lightAmber.intensity) * 0.05;
-
-        // Deform vertices with smooth harmonic wave + wave surge
-        const positions = posAttribute.array;
-        for (let i = 0; i < positions.length; i += 3) {
-          const u = origPositions[i];
-          const v = origPositions[i + 1];
-          const w = origPositions[i + 2];
-          const wave = Math.sin(u * 2.2 + time) * Math.cos(v * 2.2 + time * 0.9) * Math.sin(w * 2.2 + time * 1.1) * currentWaveAmp;
-          positions[i] = u * (1 + wave);
-          positions[i + 1] = v * (1 + wave);
-          positions[i + 2] = w * (1 + wave);
-        }
-        posAttribute.needsUpdate = true;
-        geometry.computeVertexNormals();
-
-        sphere.rotation.y = time * 0.2 + rotationBurst;
-        sphere.rotation.x = Math.sin(time * 0.15) * 0.15;
-        particles.rotation.y = time * 0.03 + rotationBurst * 0.2;
+        // Gentle space dust drift
+        particles.rotation.y = time * 0.025 + rotationBurst * 0.2;
+        particles.rotation.x = Math.sin(time * 0.015) * 0.04;
 
         renderer.render(scene, camera);
       }
@@ -1036,64 +1010,102 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     }
 
     // -------------------------------------------------------------
-    // ANIMATED CUSTOM CURSOR SYSTEM (Oleg Frolov Style)
+    // CYBERPUNK HUD TARGET CURSOR SYSTEM
     // -------------------------------------------------------------
     let mouseCursorX = -100, mouseCursorY = -100;
-    let ringCursorX = -100, ringCursorY = -100;
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
+    let hudCursorX = -100, hudCursorY = -100;
+    const hud = document.getElementById('cursor-hud');
+    const pointer = document.getElementById('cursor-pointer');
+    let isHudEnabled = localStorage.getItem('privavend_hud_cursor') !== 'false'; // Enabled by default
     let cursorActive = false;
+
+    function applyCursorMode() {
+      const icon = document.getElementById('cursorIcon');
+      const text = document.getElementById('cursorToggleText');
+      if (isHudEnabled) {
+        document.body.classList.add('hud-cursor-active');
+        if (hud) hud.style.display = 'block';
+        if (pointer) pointer.style.display = 'block';
+        if (icon) icon.className = 'fa-solid fa-crosshairs text-cyanneon text-xs';
+        if (text) text.innerText = 'HUD Cursor';
+      } else {
+        document.body.classList.remove('hud-cursor-active');
+        if (hud) hud.style.display = 'none';
+        if (pointer) pointer.style.display = 'none';
+        if (icon) icon.className = 'fa-solid fa-arrow-pointer text-gray-500 text-xs';
+        if (text) text.innerText = 'Default Cursor';
+      }
+    }
+
+    function toggleCursorMode() {
+      isHudEnabled = !isHudEnabled;
+      localStorage.setItem('privavend_hud_cursor', isHudEnabled ? 'true' : 'false');
+      applyCursorMode();
+      playTone(620, 0.05);
+    }
 
     window.addEventListener('mousemove', (e) => {
       mouseCursorX = e.clientX;
       mouseCursorY = e.clientY;
-      dot.style.left = mouseCursorX + 'px';
-      dot.style.top = mouseCursorY + 'px';
 
-      if (!cursorActive) {
+      if (pointer && isHudEnabled) {
+        pointer.style.left = mouseCursorX + 'px';
+        pointer.style.top = mouseCursorY + 'px';
+      }
+
+      if (!cursorActive && isHudEnabled) {
         cursorActive = true;
-        dot.style.opacity = '1';
-        ring.style.opacity = '1';
+        if (hud) hud.style.opacity = '1';
+        if (pointer) pointer.style.opacity = '1';
       }
     });
 
     document.addEventListener('mouseleave', () => {
       cursorActive = false;
-      dot.style.opacity = '0';
-      ring.style.opacity = '0';
+      if (hud) hud.style.opacity = '0';
+      if (pointer) pointer.style.opacity = '0';
     });
 
     document.addEventListener('mouseenter', () => {
-      cursorActive = true;
-      dot.style.opacity = '1';
-      ring.style.opacity = '1';
+      if (isHudEnabled) {
+        cursorActive = true;
+        if (hud) hud.style.opacity = '1';
+        if (pointer) pointer.style.opacity = '1';
+      }
     });
 
-    function updateCursor() {
-      ringCursorX += (mouseCursorX - ringCursorX) * 0.18;
-      ringCursorY += (mouseCursorY - ringCursorY) * 0.18;
-      ring.style.left = ringCursorX + 'px';
-      ring.style.top = ringCursorY + 'px';
-      requestAnimationFrame(updateCursor);
+    function updateHudFollower() {
+      if (isHudEnabled && hud) {
+        hudCursorX += (mouseCursorX - hudCursorX) * 0.22;
+        hudCursorY += (mouseCursorY - hudCursorY) * 0.22;
+        hud.style.left = hudCursorX + 'px';
+        hud.style.top = hudCursorY + 'px';
+      }
+      requestAnimationFrame(updateHudFollower);
     }
-    updateCursor();
+    updateHudFollower();
 
     function setupCursorHovers() {
       const interactables = document.querySelectorAll('a, button, input, textarea, select, .slider-arrow, .pill-btn, [role="button"]');
       interactables.forEach(el => {
         el.addEventListener('mouseenter', () => {
-          ring.classList.add('cursor-hover');
-          dot.classList.add('cursor-hover');
+          if (hud) hud.classList.add('cursor-hover');
+          if (pointer) pointer.classList.add('cursor-hover');
         });
         el.addEventListener('mouseleave', () => {
-          ring.classList.remove('cursor-hover');
-          dot.classList.remove('cursor-hover');
+          if (hud) hud.classList.remove('cursor-hover');
+          if (pointer) pointer.classList.remove('cursor-hover');
         });
       });
     }
 
-    window.addEventListener('mousedown', () => ring.classList.add('cursor-active'));
-    window.addEventListener('mouseup', () => ring.classList.remove('cursor-active'));
+    window.addEventListener('mousedown', () => {
+      if (hud) hud.classList.add('cursor-active');
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (hud) hud.classList.remove('cursor-active');
+    });
 
     // -------------------------------------------------------------
     // AUDIO SYNTHESIZER & WEB AUDIO API SFX
@@ -1297,6 +1309,7 @@ Ready. Click "Transmit Job & Settle Ecash" to initiate the zero-trace pipeline.
     // Initialize UI on load
     window.addEventListener('DOMContentLoaded', () => {
       init3DHero();
+      applyCursorMode();
       setupCursorHovers();
       updateCharCount();
       renderSlide(0);
